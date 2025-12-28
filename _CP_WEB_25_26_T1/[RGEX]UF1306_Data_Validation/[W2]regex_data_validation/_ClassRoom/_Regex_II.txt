@@ -1,0 +1,31 @@
+Expressions regulars per validar:
+
+Número de telèfon /^\d{6,8}$/
+
+Número de telèfon amb codi de país /^\+\d{1,3}\d{9}$/
+Byte /^[01]{8}$/
+
+Etiqueta HTML d'obertura / ^ </w+>$
+
+Etiqueta HTML de tancament /^</ [A-Za-z][A-Za-z0-9]*>$/
+
+Data /^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/
+
+Hora /^(?:[01]?\d|2[0-3])(?::[0-5]\d){1,2}$/
+
+Data i hora /^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})\s(?:[01]?\d|2[0-3])(?::[0-5]\d){1,2}$/
+Correu electrònic /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/
+
+URL (http, https o ftp) /^(https?|ftp):\/\/[\w.-]+(?:\.[\w.-]+)+(?:\/\S*)?$/
+
+ISBN (cercar informació del format) i explicar quin és. /^97[89]-\d{1,5}-\d{1,7}-\d{1,7}-\d$/
+
+Color amb format RGB -> RGB(255,255,255) /^RGB\((\d{1,3}),(\d{1,3}),(\d{1,3})\)$/
+
+Paraula que comenci per un nombre parell (excepte el zero), acabi per un nombre senar i contingui el 0. /^[2468]\w*0\w*[13579]$/
+
+IP /^(\d{1,3}\.){3}\d{1,3}$/
+
+IBAN /^ES\d{22}$/
+
+Contrasenya amb longitud superior o igual a 8 caràcters amb almenys una majúscula i una minúscula. /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/

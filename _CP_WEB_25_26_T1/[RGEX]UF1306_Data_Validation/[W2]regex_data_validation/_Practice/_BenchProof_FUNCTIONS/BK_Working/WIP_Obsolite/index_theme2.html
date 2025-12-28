@@ -1,0 +1,1390 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>BenchProof_JSONL (SPOTTED) — TriWise Trainer</title>
+<style>
+ /* =========================================
+   TriWise • Soft Grown-Up Theme (light + dim)
+   - Neutral cream base, subtle surfaces
+   - Muted cherry & warm gold accents
+   - Gentle section tints + consistent tokens
+   ========================================= */
+
+:root{
+  /* Core palette (Light) */
+  --bg:            #F4F1EC;  /* page background */
+  --surface:       #FFFFFF;  /* cards, zones, panels */
+  --surface-2:     #F8F4EE;  /* subtle alt surface */
+  --border:        #DDD6CE;  /* separators */
+  --ink:           #33312E;  /* code surface (dark) */
+  --text:          #33312E;  /* primary text */
+  --muted:         #7A766F;  /* secondary text */
+
+  /* Accents */
+  --accent:        #C94C4C;  /* primary action (muted cherry) */
+  --accent-600:    #B54242;
+  --accent-700:    #9D3A3A;
+  --accent-contrast:#FFFFFF;
+
+  --accent-2:      #A58F64;  /* secondary accent (buttery gold) */
+  --accent-2-600:  #947F57;
+
+  /* Status */
+  --ok:            #10B981;
+  --warn:          #F59E0B;
+  --bad:           #EF4444;
+
+  /* Section tints (light, very subtle) */
+  --zone-load:     #EFE9E3;   /* warm grey-beige */
+  --zone-load-br:  #D9D1C9;
+  --zone-export:   #EDE5DE;
+  --zone-export-br:#D7CEC6;
+  --zone-console:  #ECE3DB;
+  --zone-console-br:#D4C9C1;
+
+  /* Code block */
+  --code-bg:       #0B1220;
+  --code-fg:       #E5E7EB;
+
+  /* Effects */
+  --shadow-1:      0 1px 2px rgba(17, 24, 39, .06), 0 1px 1px rgba(17, 24, 39, .02);
+  --radius-lg:     14px;
+  --radius-md:     10px;
+  --radius-pill:   999px;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dim"]{
+  /* Core palette (Dim) */
+  --bg:            #2B2A28;
+  --surface:       #3C3A38;
+  --surface-2:     #353331;
+  --border:        #484643;
+  --ink:           #111827;
+  --text:          #EEEAE5;
+  --muted:         #B8B5B0;
+
+  /* Accents (softened for dark) */
+  --accent:        #E07A7A;
+  --accent-600:    #D46C6C;
+  --accent-700:    #C65E5E;
+  --accent-contrast:#1A1A1A;
+
+  --accent-2:      #C09A64;
+  --accent-2-600:  #AF8C59;
+
+  /* Section tints (dim) */
+  --zone-load:     #3C3836;
+  --zone-load-br:  #4A4643;
+  --zone-export:   #3A3834;
+  --zone-export-br:#4A4742;
+  --zone-console:  #3E3B38;
+  --zone-console-br:#4D4A47;
+
+  /* Code block */
+  --code-bg:       #0B1220;
+  --code-fg:       #E5E7EB;
+
+  color-scheme: dark;
+}
+
+/* ===== Base ===== */
+*{ transition: background-color .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease; }
+html, body { height: 100%; }
+body{
+  font-family: system-ui, Segoe UI, Roboto, Arial;
+  background: var(--bg);
+  color: var(--text);
+  max-width: 1060px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+h1{ margin:0 0 6px; font-weight: 750; }
+.sub{ color: var(--muted); margin: 0 0 18px; }
+
+/* ===== Dashboard / Zones ===== */
+.dashboard{ display:grid; gap:12px; margin:12px 0 18px; }
+.zone{
+  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+  border:1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding:10px 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+}
+.zone-title{ font-weight:700; margin-right:6px; color: var(--text); }
+.zone.load{    background: var(--zone-load);    border-color: var(--zone-load-br); }
+.zone.export{  background: var(--zone-export);  border-color: var(--zone-export-br); }
+.zone.console{  background: var(--zone-console); border-color: var(--zone-console-br); }
+
+.tabs { display:flex; gap:8px; margin:10px 0 6px; flex-wrap:wrap; }
+.tab-btn{
+  border:1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding:6px 12px;
+  background: var(--surface);
+  color: var(--text);
+  cursor:pointer;
+}
+.tab-btn[data-active="true"]{ background: var(--accent); color: var(--accent-contrast); border-color: transparent; }
+
+.panels > .panel { display:none; }
+.panels > .panel.show { display:block; }
+
+/* ===== Buttons ===== */
+.btn{
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 9px 14px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  cursor:pointer;
+  box-shadow: var(--shadow-1);
+}
+.btn:hover{ background: var(--accent-600); border-color: var(--accent-600); }
+.btn:active{ background: var(--accent-700); border-color: var(--accent-700); }
+.btn:disabled{ opacity:.55; cursor:not-allowed; }
+
+.btn.secondary{
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn.secondary:hover{ border-color: var(--accent-2); color: var(--text); }
+.btn.secondary:active{ border-color: var(--accent-2-600); }
+
+.btn.tiny{ padding:6px 10px; font-size:12.5px }
+
+/* ===== Lists & Cards ===== */
+.list{ display:grid; gap:12px; }
+.card{
+  background: var(--surface);
+  border:1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding:14px 16px;
+  box-shadow: var(--shadow-1);
+}
+.head{ display:flex; justify-content:space-between; gap:8px; align-items:center; margin-bottom:8px; }
+.meta{ color:#6b7280; color: var(--muted); font-size:13px; margin:-2px 0 6px; }
+
+.setup{
+  background: var(--surface-2);
+  border:1px dashed var(--border);
+  color: var(--text);
+  padding:8px 10px;
+  border-radius: var(--radius-md);
+  font-family: ui-monospace, Consolas, monospace;
+  white-space: pre-wrap;
+  margin-bottom:8px;
+}
+
+.code{
+  background: var(--ink);
+  color: var(--code-fg);
+  border-radius: var(--radius-md);
+  padding:10px 12px;
+  white-space: pre-wrap;
+  overflow:auto;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size:14.5px;
+}
+
+/* ===== Interaction row ===== */
+.row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; position:relative; }
+
+.chip{
+  display:inline-flex; align-items:center; gap:6px;
+  border:1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding:7px 12px;
+  cursor:pointer; background: var(--surface);
+}
+.chip[data-state="on"]{ box-shadow: 0 0 0 2px inset rgba(0,0,0,.08); }
+.ok{  background:#ECFDF5; }
+.var{ background:#FFFBEB; }
+.bad{ background:#FEF2F2; }
+
+.shortbox{ display:flex; gap:8px; align-items:center; margin-top:10px; }
+.shortbox input{
+  flex:1; padding:8px 10px; border-radius: var(--radius-md);
+  border:1px solid var(--border); background: var(--surface);
+  color: var(--text);
+}
+
+/* Hint pill + tooltip */
+.hint-wrap { position: relative; display: inline-block; }
+.hint-pill {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius-pill);
+  padding: 4px 8px;
+  font-size: 12.5px;
+  cursor: default;
+}
+.hint-pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.hint-tip{
+  position: absolute;
+  z-index: 50;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 6px;
+
+  /* 👇 make it shrink/grow to content */
+  display: inline-block;
+  width: max-content;              /* fit to content width */
+  max-width: min(70ch, 90vw);      /* but don’t overflow screen */
+  white-space: normal;             /* allow wrapping */
+  overflow-wrap: break-word;       /* break long tokens */
+  word-break: break-word;          /* safety for very long strings */
+
+  transform: translateY(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: .15s ease;
+
+  background: var(--ink);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  box-shadow: var(--shadow-1);
+}
+.hint-wrap:hover .hint-tip,
+.hint-wrap:focus-within .hint-tip {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* keep .row positioned so absolute tooltip anchors correctly */
+.row { position: relative; }
+@media (max-width: 600px) {
+  .hint-tip { left: auto; right: 0; } /* anchor to the right if space is tight */
+}
+
+/* ===== Feedback & Summary ===== */
+.fb{ margin-top:10px; font-size:14px; display:none; }
+.fb.show{ display:block; }
+.fb .status{ font-weight:600; }
+.fb.ok .status{ color: var(--ok); }
+.fb.bad .status{ color: var(--bad); }
+.fb .why{ margin-top:6px; color: var(--text); opacity:.95; }
+.fb .hint{ margin-top:4px; color: var(--muted); }
+
+.wrong{ border-color:#FECACA; }
+
+.summary{
+  margin-top:16px; padding:10px 12px;
+  border:1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+.summary strong{ margin-right:10px; }
+.hide{ display:none !important; }
+
+/* ===== Badges ===== */
+.badge{
+  display:inline-block; font-size:12px; padding:3px 8px;
+  border-radius: var(--radius-pill);
+  border:1px solid var(--border);
+  margin-left:6px; background: var(--surface);
+}
+.badge.ok { background:#ECFDF5; color:#065F46; }
+.badge.var{ background:#FFFBEB; color:#7C2D12; }
+.badge.bad{ background:#FEF2F2; color:#7F1D1D; }
+
+/* ===== Focus nav ===== */
+.focus-nav{ display:flex; gap:8px; align-items:center; }
+.focus-nav .pos{ font-size:12.5px; color: var(--muted); }
+
+/* ===== Console Lab ===== */
+.console-lab{
+  margin-top:8px; border:1px dashed var(--zone-console-br);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding:10px 12px;
+}
+.console-output{
+  background: var(--code-bg);
+  color: var(--code-fg);
+  border-radius: var(--radius-md);
+  padding:8px 10px;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size:13.5px; white-space:pre-wrap; max-height:280px; overflow:auto;
+}
+.console-output .l-info{ color:#A7F3D0; }
+.console-output .l-warn{ color:#FDE68A; }
+.console-output .l-error{ color:#FECACA; }
+.console-output .l-hr{ color:#64748B; }
+
+/* ===== Secondary buttons dark override (kept) ===== */
+:root[data-theme="dim"] .btn.secondary {
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* --- action cue --- */
+@keyframes pulse-brief {
+  0%   { box-shadow: 0 0 0 0 rgba(16,185,129,.0); }
+  20%  { box-shadow: 0 0 0 6px rgba(16,185,129,.25); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,.0); }
+}
+.flash-cue {
+  animation: pulse-brief 480ms ease-out;
+}
+
+</style>
+</head>
+<body>
+  <h1>TriWise Trainer</h1>
+  <p class="sub">
+    <b>tri</b>: clasifica (Correcta / Variable / Incorrecta) ·
+    <b>short</b>: escribe el valor que imprime <code>console.log</code> ·
+    <b>code</b>: pasa las pruebas (validador).
+  </p>
+
+  <!-- DASHBOARD (coherent zones) -->
+  <div class="dashboard">
+    <!-- Load & Validate -->
+    <div class="zone load" aria-label="Carga y validación">
+      <span class="zone-title">Load & Validate</span>
+      <select id="bankSelect" title="Selecciona banco">
+        <option value="pla2_actividad1_tri_cambridge.jsonl">Actividad 1 (tri)</option>
+        <option value="spotted_actividad2_alerts.jsonl">Actividad 2 (alerts)</option>
+        <option value="spotted_operators_bank3.jsonl">Operadores 3 (igualdad)</option>
+        <option value="spotted_operators_bank4.jsonl">Operadores 4 (lógicos)</option>
+        <option value="spotted_operators_bank5.jsonl">Operadores 5 (aritmética)</option>
+        <option value="spotted_validator_smoketest.jsonl">Validator — Smoke test</option>
+
+        <option value="spotted_operators_bank_rewire.jsonl">Operadores 6 (aritmética)</option>
+        <option value="spotted_operators_bank6.jsonl">Operadores 6 (bitwise/typeof)</option>
+        <option value="spotted_operators_bank7_validator.jsonl">Operadores 7 (validator)</option>
+        <!-- EN arithmetic banks -->
+        <option value="spotted_operators_arith_en_bank1.jsonl">Operators EN — Arithmetic 1</option>
+        <option value="spotted_operators_arith_en_bank2.jsonl">Operators EN — Arithmetic 2</option>
+        <option value="spotted_operators_arith_en_bank3.jsonl">Operators EN — Arithmetic 3</option>
+      </select>
+      <button id="loadBank" class="btn secondary">Cargar banco</button>
+      <button id="nextBank" class="btn secondary">Siguiente banco ▸</button>
+
+      <span style="width:1px; height:24px; background:var(--zone-load-br); opacity:.6;"></span>
+
+      <button id="check" class="btn" title="Ctrl/⌘+Enter">Corregir</button>
+      <button id="retryWrong" class="btn secondary" disabled>Reintentar fallos</button>
+      <label class="toggle"><input type="checkbox" id="onlyWrong"/> Mostrar sólo fallos</label>
+      <span style="width:1px; height:24px; background:var(--zone-load-br); opacity:.6;"></span>
+
+<label class="toggle">
+  <input type="checkbox" id="focusMode"/> Focus mode
+</label>
+<div class="focus-nav">
+  <button id="prevItem" class="btn tiny secondary" disabled>◂ Prev</button>
+  <button id="nextItem" class="btn tiny secondary" disabled>Next ▸</button>
+  <span class="pos" id="focusPos"></span>
+</div>
+
+<span style="width:1px; height:24px; background:var(--zone-load-br); opacity:.6;"></span>
+
+<button id="themeSwitch" class="btn secondary tiny" title="Light/Dim">Theme</button>
+
+    </div>
+
+    <!-- Markdown Exports -->
+    <div class="zone export" aria-label="Exportar a Markdown">
+      <span class="zone-title">Markdown Exports</span>
+      <button id="exportWrong" class="btn secondary" disabled>Exportar fallos → MD</button>
+      <button id="exportAll" class="btn secondary">Exportar todo → MD</button>
+      <button id="exportAllNoKeys" class="btn secondary">Exportar todo (sin soluciones)</button>
+    </div>
+
+    <!-- Console area -->
+    <div class="zone console" aria-label="Consola">
+      <span class="zone-title">Console Lab</span>
+      <button id="openConsoleLab" class="btn secondary">Mostrar/Ocultar</button>
+      <button id="runAllItems" class="btn secondary tiny" title="Ejecuta todo el banco cargado">Run all in bank</button>
+      <div id="consoleLab" class="console-lab hide" aria-live="polite" style="flex:1 1 100%;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
+          <strong>Console Lab</strong>
+          <div style="display:flex; gap:8px;">
+            <button id="runConsoleText" class="btn tiny">Run</button>
+            <button id="clearConsole" class="btn tiny secondary">Clear</button>
+          </div>
+        </div>
+        <div class="row" style="display:flex; gap:8px; align-items:center; margin:6px 0 10px;">
+          <textarea id="consoleInput" placeholder="// Type or paste JS. Use \"// ---\" to split multiple snippets.
+console.log(2 + 3 * 4);
+// ---
+let x=5; console.log(x++, x);" 
+            style="width:100%; min-height:140px; resize:vertical; font-family:ui-monospace,Consolas,monospace; font-size:14px; border:1px solid var(--border); border-radius:10px; padding:8px 10px; background:var(--bg);"></textarea>
+        </div>
+        <div id="consoleOutput" class="console-output" role="log"></div>
+        <small class="sub">Sandboxed; capturamos <code>console.*</code>, errores y rechazos. <code>alert()</code> neutralizado. Delimitador: <code>// ---</code>. Si no hay logs, mostramos el valor de la última expresión.</small>
+      </div>
+    </div>
+  </div>
+
+  <details style="margin:12px 0">
+    <summary style="cursor:pointer">➕ Crear ejercicio rápido</summary>
+    <div style="padding:10px 0; display:grid; gap:8px">
+      <label>Tipo
+        <select id="newType">
+          <option value="tri">tri (clasificación)</option>
+          <option value="short">short (respuesta corta)</option>
+          <option value="code">code (validador)</option>
+        </select>
+      </label>
+      <label>ID <input id="newId" placeholder="SP2-8"/></label>
+      <label>Código / Respuesta / Solución
+        <textarea id="newCode" rows="3" placeholder="console.log(1+2); // o una expresión / función"></textarea>
+      </label>
+      <label>Respuesta esperada (solo SHORT) <input id="newAns" placeholder="3"/></label>
+      <label>Pista (hover) <input id="newHint" placeholder="Suma básica"/></label>
+      <label>Explicación (tono Cambridge)
+        <textarea id="newExplain" rows="3" placeholder="La expresión suma 1 y 2..."></textarea>
+      </label>
+      <label>Setup (opcional, estado previo)
+        <textarea id="newSetup" rows="2" placeholder="let x=1;"></textarea>
+      </label>
+      <label>Validator (JSON, solo CODE)
+        <textarea id="newValidator" rows="3" placeholder='{"mode":"expr","tests":["result>0"],"runtime":{"vars":{"a":2}}}'></textarea>
+      </label>
+      <button id="addExercise" class="btn secondary">Añadir al banco actual</button>
+    </div>
+  </details>
+
+<div class="tabs">
+  <button class="tab-btn" data-tab="ex" data-active="true">Exercises</button>
+  <button class="tab-btn" data-tab="cx">Concepts</button>
+</div>
+<div class="panels">
+  <div id="panel-ex" class="panel show">
+    <div id="list" class="list"></div>
+    <div id="summary" class="summary hide"></div>
+  </div>
+  <div id="panel-cx" class="panel">
+    <div class="card" style="margin-bottom:10px">
+      <div class="head" style="margin:0 0 6px 0">
+        <strong>Concept sheet</strong>
+        <div class="righthead">
+          <button id="cxReload" class="btn tiny secondary">Reload .md</button>
+          <button id="cxSave" class="btn tiny">Save notes</button>
+        </div>
+      </div>
+      <div class="meta" id="cxInfo">Bank: —</div>
+      <div style="display:grid; gap:8px">
+        <textarea id="cxEdit" rows="8" placeholder="Write notes or paste definitions…"
+          style="width:100%; resize:vertical; font-family:ui-monospace,Consolas,monospace; border:1px solid var(--border); border-radius:10px; padding:8px 10px;"></textarea>
+        <div id="cxView" class="code" style="white-space:normal;"></div>
+        <small class="sub">Loads sibling Markdown (same filename, <code>.md</code>). Your edits are saved in <i>localStorage</i> per bank.</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+
+<script>
+/* ========== BANK SWITCHER (robust) ========== */
+const DATA_SRC = "pla2_actividad1_tri_cambridge.jsonl";
+const bankSelect = document.getElementById('bankSelect');
+function getBanksFromSelect(){ return Array.from(bankSelect.options).map(o=>o.value); }
+async function loadSelectedBank(){ await loadBankByName(bankSelect.value); }
+function selectNextBank(){ const banks=getBanksFromSelect(); const i=Math.max(0,banks.indexOf(bankSelect.value)); bankSelect.value = banks[(i+1)%banks.length]; }
+
+/* ========== FALLBACK SAMPLE ========== */
+const FALLBACK = [
+  {"id":"A1","type":"tri","tier":2,"lang":"es","category":"Operadores y Expresiones","subcat":"clasificacion","question":"Clasifica la expresión","code":"var ser=vivo || nombre>=18;","options":["correct","variable","incorrect"],"answer":"variable","hint":"Piensa si la expresión 'compila' antes de ejecutarse.","explain":"La sintaxis es correcta; el resultado depende de que `vivo` y `nombre` existan y de que `nombre` sea numérico. En ejercicios de clasificación lo tratamos como «Problema de variable»."},
+  {"id":"A2","type":"tri","tier":2,"lang":"es","category":"Operadores y Expresiones","subcat":"clasificacion","question":"Clasifica la expresión","code":"edad=>18;","options":["correct","variable","incorrect"],"answer":"incorrect","hint":"Revisa la forma de las comparaciones (`>=`, `<=`, `===`).","explain":"En JavaScript la comparación es `>=`. La secuencia `=>` corresponde a arrow function y aquí no forma una expresión válida."}
+];
+
+/* ========== LABELS ========== */
+const LABELS = {
+  correct:{text:"Correcta ✅",badge:"ok"},
+  variable:{text:"Variable 🟧",badge:"var"},
+  incorrect:{text:"Incorrecta ⛔",badge:"bad"}
+};
+
+/* ========== STATE ========== */
+const listEl = document.getElementById('list');
+const checkBtn = document.getElementById('check');
+const retryBtn = document.getElementById('retryWrong');
+const onlyWrong = document.getElementById('onlyWrong');
+const exportWrongBtn = document.getElementById('exportWrong');
+const exportAllBtn = document.getElementById('exportAll');
+const exportAllNoKeysBtn = document.getElementById('exportAllNoKeys');
+const summaryEl = document.getElementById('summary');
+
+onlyWrong.addEventListener('change', applyOnlyWrongFilter);
+retryBtn.addEventListener('click', retryWrongItems);
+exportWrongBtn.addEventListener('click', exportWrongMarkdown);
+
+
+
+
+// Focus mode state
+const focusToggle = document.getElementById('focusMode');
+const prevBtn = document.getElementById('prevItem');
+const nextBtn = document.getElementById('nextItem');
+const focusPos = document.getElementById('focusPos');
+let focusMode = false;
+let focusIndex = 0;
+
+// Tabs & panels
+const tabButtons = document.querySelectorAll('.tab-btn');
+const panelEx = document.getElementById('panel-ex');
+const panelCx = document.getElementById('panel-cx');
+
+// Concepts
+const cxInfo = document.getElementById('cxInfo');
+const cxEdit = document.getElementById('cxEdit');
+const cxView = document.getElementById('cxView');
+const cxReloadBtn = document.getElementById('cxReload');
+const cxSaveBtn = document.getElementById('cxSave');
+
+// === Concepts load/save per bank ===
+function renderMd(md){
+  const esc = s => s.replace(/[&<>]/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+  let html = esc(md);
+  html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (m,lang,code)=>(
+    `<pre class="code"><code>${esc(code)}</code></pre>`
+  ));
+  html = html.replace(/^###### (.*)$/gm,'<h6>$1</h6>')
+             .replace(/^##### (.*)$/gm,'<h5>$1</h5>')
+             .replace(/^#### (.*)$/gm,'<h4>$1</h4>')
+             .replace(/^### (.*)$/gm,'<h3>$1</h3>')
+             .replace(/^## (.*)$/gm,'<h2>$1</h2>')
+             .replace(/^# (.*)$/gm,'<h1 style="font-size:1.25rem;margin:.4rem 0">$1</h1>');
+  html = html.replace(/`([^`]+)`/g,'<code>$1</code>');
+  html = html.replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');
+  html = html.replace(/\*([^*]+)\*/g,'<i>$1</i>');
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noreferrer noopener">$1</a>');
+  html = html.split(/\n{2,}/).map(p=>`<p>${p}</p>`).join('\n');
+  return html;
+}
+
+async function loadConceptForBank(filename){
+  cxInfo.textContent = 'Bank: ' + filename;
+  const key = 'concepts:' + filename;
+  // local notes first
+  const local = localStorage.getItem(key);
+  if(local){
+    cxEdit.value = local;
+    cxView.innerHTML = renderMd(local);
+    return;
+  }
+  // try sibling .md
+  const mdName = filename.replace(/\.jsonl$/i, '.md');
+  try{
+    const res = await fetch(mdName, {cache:'no-store'});
+    if(!res.ok) throw new Error();
+    const text = await res.text();
+    cxEdit.value = text;
+    cxView.innerHTML = renderMd(text);
+  }catch(e){
+    const placeholder = `# ${mdName}\n\nAdd definitions, examples, and quick rules here.\n\n- Equality vs Identity\n- Truthy / Falsy table\n- Operator precedence chart\n`;
+    cxEdit.value = placeholder;
+    cxView.innerHTML = renderMd(placeholder);
+  }
+}
+cxEdit?.addEventListener('input', ()=>{
+  cxView.innerHTML = renderMd(cxEdit.value);
+});
+cxReloadBtn?.addEventListener('click', ()=> loadConceptForBank(bankSelect.value));
+cxSaveBtn?.addEventListener('click', ()=>{
+  const key = 'concepts:' + bankSelect.value;
+  localStorage.setItem(key, cxEdit.value);
+  alert('Notes saved for ' + bankSelect.value);
+});
+//tabs
+tabButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabButtons.forEach(b=>b.dataset.active='false');
+    btn.dataset.active='true';
+    const tab = btn.dataset.tab;
+    panelEx.classList.toggle('show', tab==='ex');
+    panelCx.classList.toggle('show', tab==='cx');
+  });
+});
+
+// Theme
+const themeSwitch = document.getElementById('themeSwitch');
+
+themeSwitch.addEventListener('click', ()=>{
+  const r = document.documentElement;
+  const cur = r.getAttribute('data-theme') || 'light';
+  r.setAttribute('data-theme', cur === 'dim' ? 'light' : 'dim');
+});
+
+// persist + restore
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+themeSwitch.addEventListener('click', ()=>{
+  const r = document.documentElement;
+  const cur = r.getAttribute('data-theme') || 'light';
+  const next = (cur === 'dim' ? 'light' : 'dim');
+  r.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+});
+
+let BANK = []; //window.BANK = BANK;
+let picks = new Map(); // id -> tri key | short text | code source
+let lastResult = null;
+
+async function loadBankByName(name){
+  const data = await loadJSONL(name);
+
+  // keep same array reference
+  BANK.length = 0;
+  BANK.push(...data);
+  window.BANK = BANK;
+
+  picks.clear();
+  lastResult = null;
+
+  // reset UI for a fresh bank
+  summaryEl.classList.add('hide');
+
+  retryBtn.disabled = true;
+  exportWrongBtn.disabled = true;
+
+  onlyWrong.checked = false;
+  onlyWrong.disabled = (BANK.length === 0);
+
+  render();
+  loadConceptForBank?.(name);
+}
+
+
+// Sanity 
+
+(function sanity(){
+  const ids = ['check','retryWrong','onlyWrong','exportWrong','list','summary'];
+  const found = Object.fromEntries(ids.map(id=>[id, !!document.getElementById(id)]));
+  console.table(found);
+
+  // reveal current disabled state
+  const retryBtn = document.getElementById('retryWrong');
+  const onlyWrong = document.getElementById('onlyWrong');
+  const exportWrongBtn = document.getElementById('exportWrong');
+  console.log('disabled:', {
+    retry: retryBtn?.disabled,
+    onlyWrong: onlyWrong?.disabled,
+    exportWrong: exportWrongBtn?.disabled
+  });
+
+  // check if listeners exist by monkey-patching once
+  const _oldRetry = retryBtn?.onclick;
+  retryBtn && (retryBtn.onclick = function(){
+    console.log('[probe] retry clicked');
+    _oldRetry && _oldRetry.call(this);
+  });
+
+  // show lastResult status
+  console.log('lastResult type:', typeof window.lastResult, 'isArray:', Array.isArray(window.lastResult));
+})();
+
+
+/* ========== CODE VALIDATOR (guards & evals) ========== */
+function guardCode(s){
+  const banned=/(window|document|globalThis|Function|eval|XMLHttpRequest|fetch|import\s*\()|new\s+Function|<\/script>/i;
+  return !(banned.test(s) || (s||'').length>3000);
+}
+function evalExpr(expr, env){ const keys=Object.keys(env||{}); const fn=new Function('env','"use strict"; const {'+keys.join(',')+'}=env; return ('+expr+');'); return fn(env||{}); }
+function runTestOnResult(testExpr, result, env){ const fn=new Function('result','env','"use strict"; return ('+testExpr+');'); return !!fn(result, env||{}); }
+function evalFunction(code, env){ const keys=Object.keys(env||{}); const fn=new Function('env','"use strict"; const {'+keys.join(',')+'}=env; return ('+code+');'); const out=fn(env||{}); if(typeof out!=='function') throw new Error('Se esperaba una función.'); return out; }
+function runTestOnFn(testExpr, fnValue, env){ const test=new Function('fn','env','"use strict"; return ('+testExpr+');'); return !!test(fnValue, env||{}); }
+
+/* ========== HELPERS & EXPORTS ========== */
+function chip(key){
+  const btn=document.createElement('button');
+  btn.type='button';
+  btn.className='chip '+(key==='correct'?'ok':key==='variable'?'var':'bad');
+  btn.textContent=LABELS[key].text;
+  btn.dataset.key=key; btn.setAttribute('aria-pressed','false');
+  btn.title = LABELS[key].text + ' (atajo: ' + (key==='correct'?'1':key==='variable'?'2':'3') + ')';
+  return btn;
+}
+function buildHint(item){
+  const wrap = document.createElement('div');
+  wrap.className = 'hint-wrap';
+  const pill = document.createElement('button');
+  pill.type = 'button';
+  pill.className = 'hint-pill';
+  pill.textContent = '💡 Hint';
+  pill.setAttribute('aria-haspopup', 'true');
+
+  const tip = document.createElement('div');
+  tip.className = 'hint-tip';
+  tip.textContent = item.hint ? item.hint : 'No hint available for this item.';
+
+  wrap.append(pill, tip);
+  return wrap;
+}
+
+function download(name, text){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([text],{type:'text/markdown'}));
+  a.download=name; document.body.appendChild(a); a.click(); URL.revokeObjectURL(a.href); a.remove();
+}
+function itemToMarkdown(result){
+  const {item, pick} = result;
+  if(item.type==='tri'){
+    const correctness = (pick===item.answer) ? "✅ Bien" : (pick ? "❌ Incorrecta" : "⏳ Sin responder");
+    const correctLabel = LABELS[item.answer].text;
+    const chosen = pick ? (LABELS[pick]?.text || pick) : "—";
+    return `### ${item.id} · Clasificación (tri)\n\n`+
+      `**Tu selección:** ${chosen}\n\n`+
+      `**Estado:** ${correctness} · **Correcta:** ${correctLabel}\n\n`+
+      `**Explicación**\n\n${item.explain||''}\n\n`+
+      (item.hint ? `> 💡 *Pista:* ${item.hint}\n\n` : "") +
+      (item.setup ? `**Setup**\n\n\`\`\`js\n${item.setup}\n\`\`\`\n\n` : "") +
+      "```js\n"+(item.code||'')+"\n```\n";
+  } else if(item.type==='short'){
+    const ok = String(pick ?? '').trim() === String(item.answer ?? '').trim();
+    return `### ${item.id} · Respuesta corta (short)\n\n`+
+      `**Tu respuesta:** ${pick ?? '—'}\n\n`+
+      `**Estado:** ${ok ? '✅ Bien' : '❌ Incorrecta'} · **Correcta:** ${item.answer}\n\n`+
+      `**Explicación**\n\n${item.explain||''}\n\n`+
+      (item.hint ? `> 💡 *Pista:* ${item.hint}\n\n` : "") +
+      (item.setup ? `**Setup**\n\n\`\`\`js\n${item.setup}\n\`\`\`\n\n` : "") +
+      "```js\n"+(item.code||'')+"\n```\n";
+  } else if(item.type==='code'){
+    const src = pick ?? '';
+    return `### ${item.id} · Validador (code)\n\n`+
+      (item.prompt ? `**Enunciado:** ${item.prompt}\n\n` : '') +
+      `**Tu respuesta (código):**\n\n\`\`\`js\n${src}\n\`\`\`\n\n`+
+      `**Feedback**\n\n${item.explain || ''}\n\n`+
+      (item.hint ? `> 💡 *Pista:* ${item.hint}\n\n` : '') +
+      (item.validator && item.validator.tests ? `**Pruebas**\n\n`+ item.validator.tests.map(x=>`- ${x}`).join('\n') + '\n\n' : '') +
+      (item.setup ? `**Setup**\n\n\`\`\`js\n${item.setup}\n\`\`\`\n\n` : '');
+  }
+  return '';
+}
+function itemToMarkdownNoKeys(item){
+  if(item.type==='tri'){
+    return `### ${item.id} · Clasificación (tri)\n\n`+
+      (item.hint ? `> 💡 *Hint:* ${item.hint}\n\n` : "") +
+      (item.setup ? `**Setup**\n\n\`\`\`js\n${item.setup}\n\`\`\`\n\n` : "") +
+      "```js\n"+(item.code||'')+"\n```\n" +
+      (item.explain ? `**Explanation**\n\n${item.explain}\n\n` : "");
+  } else if(item.type==='short'){
+    return `### ${item.id} · Short answer\n\n`+
+      (item.hint ? `> 💡 *Hint:* ${item.hint}\n\n` : "") +
+      (item.setup ? `**Setup**\n\n\`\`\`js\n${item.setup}\n\`\`\`\n\n` : "") +
+      "```js\n"+(item.code||'')+"\n```\n" +
+      (item.explain ? `**Explanation**\n\n${item.explain}\n\n` : "");
+  } else if(item.type==='code'){
+    return `### ${item.id} · Code validator\n\n`+
+      (item.prompt ? `**Prompt:** ${item.prompt}\n\n` : "") +
+      (item.hint ? `> 💡 *Hint:* ${item.hint}\n\n` : "") +
+      (item.setup ? `**Setup**\n\n\`\`\`js\n${item.setup}\n\`\`\`\n\n` : "") +
+      (item.validator && item.validator.tests ? `**Tests**\n\n${item.validator.tests.map(t=>`- ${t}`).join('\n')}\n\n` : "");
+  }
+  return '';
+}
+function exportWrongMarkdown(){
+  if (!lastResult){ alert('Primero corrige los ejercicios.'); return; }
+  const wrong = lastResult.filter(r => !r.ok);
+  if (!wrong.length){ alert('No hay fallos que exportar.'); return; }
+
+  const lines = [
+    "# Informe de revisión — Ítems a reforzar",
+    "",
+    `Total: ${lastResult.length} · Correctos: ${lastResult.filter(r=>r.ok).length} · A revisar: ${wrong.length}`,
+    ""
+  ];
+  wrong.forEach(r => lines.push(itemToMarkdown(r)));
+  download("reporte_fallos.md", lines.join("\n"));
+}
+
+function exportAllMarkdown({revealSolutions=true}={}){
+  if(!Array.isArray(BANK)||!BANK.length){ alert("No hay ejercicios cargados."); return; }
+  const lines = [];
+  lines.push(revealSolutions ? "# Bank export — with solutions\n" : "# Bank export — no solutions\n", "");
+  BANK.forEach(item=>{
+    if(revealSolutions){
+      const pick = picks.get(item.id) ?? null;
+      const res = { id:item.id, ok:false, pick, item };
+      if(item.type==='tri'){ res.ok = (pick===item.answer); }
+      else if(item.type==='short'){ res.ok = String(pick??'').trim() === String(item.answer??'').trim(); }
+      lines.push(itemToMarkdown(res));
+    } else {
+      lines.push(itemToMarkdownNoKeys(item));
+    }
+  });
+  download(revealSolutions ? "bank_all_with_solutions.md" : "bank_all_no_solutions.md", lines.join("\n"));
+}
+function updateFocusNav(){
+  const n = BANK.length;
+  prevBtn.disabled = !focusMode || n===0 || focusIndex<=0;
+  nextBtn.disabled = !focusMode || n===0 || focusIndex>=n-1;
+  focusPos.textContent = focusMode && n ? `Item ${focusIndex+1} / ${n}` : '';
+}
+focusToggle.addEventListener('change', ()=>{
+  focusMode = focusToggle.checked;
+  focusIndex = 0;
+  render();
+  updateFocusNav();
+});
+prevBtn.addEventListener('click', ()=>{
+  if(focusIndex>0){ focusIndex--; render(); updateFocusNav(); }
+});
+nextBtn.addEventListener('click', ()=>{
+  if(focusIndex<BANK.length-1){ focusIndex++; render(); updateFocusNav(); }
+});
+document.addEventListener('keydown', (e)=>{
+  if(!focusMode) return;
+  if(e.key==='ArrowRight'){ nextBtn.click(); }
+  if(e.key==='ArrowLeft'){ prevBtn.click(); }
+});
+
+
+/* ========== RENDER & CARD UI ========== */
+function addSendToConsoleButton(headEl, item){
+  const btn = document.createElement('button');
+  btn.className = 'btn tiny secondary';
+  btn.textContent = '▶ Send to Console';
+  btn.title = 'Añadir este setup+code a la Console Lab';
+  btn.addEventListener('click', ()=>{
+    const chunk = [item?.setup||'', item?.code||''].filter(Boolean).join('\n').trim();
+    if(!chunk){ alert('No code to send.'); return; }
+    if(consoleInputEl.value.trim().length) consoleInputEl.value += '\n// ---\n';
+    consoleInputEl.value += chunk + '\n';
+    showLab(true);
+    logLine(`[info] Added ${item.id} to Console Lab.`, 'l-info');
+  });
+  const right = headEl.querySelector('.righthead') || headEl;
+  right.appendChild(btn);
+}
+
+function render(){
+  listEl.innerHTML = '';
+
+  // show one item when Focus mode is ON, else all
+  const items = (focusMode && BANK.length) ? [ BANK[focusIndex] ] : BANK;
+
+  items.forEach((item, idxLocal) => {
+    // keep the global index for labels like "#1" when in focus mode
+    const idx = focusMode ? focusIndex : idxLocal;
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.id = item.id;
+
+    const head = document.createElement('div');
+    head.className = 'head';
+    const badgeText =
+      item.type === 'tri'   ? (LABELS[item.answer]?.text || '') :
+      item.type === 'short' ? ('Solución: ' + (item.answer ?? '')) :
+                              'Validador';
+    const badgeClass = item.type === 'tri' ? (LABELS[item.answer]?.badge || 'ok') : 'ok';
+    head.innerHTML = `
+      <div class="lefthead">
+        <div><strong>#${idx+1}</strong>
+          <span class="badge ${badgeClass}" title="Etiqueta de corrección" style="display:none">${badgeText}</span>
+        </div>
+      </div>
+      <div class="righthead">
+        <button class="btn tiny secondary" data-action="export">Exportar MD</button>
+      </div>
+    `;
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent =
+      item.type === 'tri'   ? 'Tipo: tri (clasificación)' :
+      item.type === 'short' ? 'Tipo: short (respuesta corta)' :
+                              'Tipo: code (validador)';
+
+    const setup = document.createElement('div');
+    if (item.setup) { setup.className='setup'; setup.textContent=item.setup; }
+
+    const codeBlock = document.createElement('div');
+    codeBlock.className = 'code';
+    codeBlock.textContent = item.code || '';
+
+    const row = document.createElement('div');
+    row.className = 'row';
+
+    if (item.type === 'tri'){
+      ['correct','variable','incorrect'].forEach(k=>{
+        const c = chip(k);
+        c.addEventListener('click', ()=>{
+          picks.set(item.id, k);
+          [...row.children].forEach(x=>x.dataset.state='off');
+          c.dataset.state='on'; c.setAttribute('aria-pressed','true');
+        });
+        row.appendChild(c);
+      });
+      // NEW hint
+      row.appendChild(buildHint(item));
+
+      card.append(head, meta);
+      if (item.setup) card.append(setup);
+      card.append(codeBlock, row);
+
+    } else if (item.type === 'short'){
+      const box = document.createElement('div');
+      box.className = 'shortbox';
+
+      const shortInput = document.createElement('input');
+      shortInput.type = 'text';
+      shortInput.placeholder = 'Escribe la salida…';
+      shortInput.addEventListener('input', ()=> picks.set(item.id, shortInput.value));
+      box.appendChild(shortInput);
+
+      // hint
+      const hintEl = buildHint(item);
+
+      // place both on the interaction row
+      row.appendChild(box);
+      row.appendChild(hintEl);
+
+      card.append(head, meta);
+      if (item.setup) card.append(setup);
+      card.append(codeBlock, row);
+
+    } else if (item.type === 'code'){
+      const prompt = document.createElement('div');
+      prompt.className = 'meta';
+      prompt.textContent = item.prompt || 'Escribe tu solución';
+
+      const box = document.createElement('div');
+      box.className = 'shortbox';
+
+      const codeArea = document.createElement('textarea');
+      codeArea.rows = 3;
+      codeArea.placeholder = item.scaffold || '/* Escribe una sola expresión o devuelve una función */';
+      codeArea.style.width = '100%';
+      codeArea.addEventListener('input', ()=> picks.set(item.id, codeArea.value));
+      box.appendChild(codeArea);
+
+      // hint
+      row.appendChild(box);
+      row.appendChild(buildHint(item));
+
+      card.append(head, meta);
+      if (item.setup) card.append(setup);
+      card.append(prompt, row);
+    }
+
+    const fb = document.createElement('div');
+    fb.className = 'fb';
+    fb.innerHTML = `<div class="status"></div><div class="why"></div><div class="hint"></div>`;
+
+    head.querySelector('[data-action="export"]').addEventListener('click', ()=>{
+      const res = { id:item.id, ok:false, pick: picks.get(item.id) ?? null, item };
+      if (item.type==='tri')   res.ok = (res.pick===item.answer);
+      else if (item.type==='short') res.ok = String(res.pick??'').trim() === String(item.answer??'').trim();
+      download(`${item.id}.md`, itemToMarkdown(res));
+    });
+
+    addSendToConsoleButton(head, item);
+    card.appendChild(fb);
+    listEl.appendChild(card);
+  });
+
+  updateFocusNav();
+}
+
+/* ========== SUMMARY & CORRECTION ========== */
+function summarize(result){
+  const total=result.length; const ok=result.filter(r=>r.ok).length;
+  const byPickTri={correct:0,variable:0,incorrect:0};
+  const byAnswerTri={correct:0,variable:0,incorrect:0};
+  result.forEach(r=>{
+    if(r.item.type==='tri'){
+      if(r.pick) byPickTri[r.pick]=(byPickTri[r.pick]||0)+1;
+      byAnswerTri[r.item.answer]=(byAnswerTri[r.item.answer]||0)+1;
+    }
+  });
+  summaryEl.classList.remove('hide');
+  summaryEl.innerHTML = `
+    <strong>Resultado:</strong> ${ok}/${total}
+    ${ (byAnswerTri.correct+byAnswerTri.variable+byAnswerTri.incorrect)>0 ? `
+    &nbsp;·&nbsp; <span class="badge ok">Correcta: ${byAnswerTri.correct||0}</span>
+    <span class="badge var">Variable: ${byAnswerTri.variable||0}</span>
+    <span class="badge bad">Incorrecta: ${byAnswerTri.incorrect||0}</span>
+    <br><small class="sub">Tus elecciones (tri) → ✅ ${byPickTri.correct||0} · 🟧 ${byPickTri.variable||0} · ⛔ ${byPickTri.incorrect||0}</small>
+    ` : ``}
+  `;
+}
+function correctAll(){
+  const results = [];
+  const wrongIds = [];
+
+  document.querySelectorAll('.card').forEach((card) => {
+    const id = card.dataset.id;
+    const item = BANK.find(x => x.id === id);
+    if (!item) return; // guard
+
+    const headBadge = card.querySelector('.badge');
+    const fb        = card.querySelector('.fb');
+    const pick      = picks.get(id);
+
+    fb.className = 'fb show';
+    fb.querySelector('.why').textContent  = item.explain || '';
+    fb.querySelector('.hint').textContent = item.hint ? ('Pista: '+item.hint) : '';
+
+    let ok = false;
+
+    if (item.type === 'tri'){
+      if (!pick){
+        card.classList.add('wrong'); fb.classList.add('bad');
+        fb.querySelector('.status').innerHTML = `Sin responder · La correcta es <b>${LABELS[item.answer].text}</b>`;
+        headBadge.style.display = 'inline-block';
+        wrongIds.push(id);
+        results.push({ id, ok:false, pick:null, item });
+        return;
+      }
+      ok = (pick === item.answer);
+
+    } else if (item.type === 'short'){
+      const expected = String(item.answer ?? '').trim();
+      const got      = String(pick ?? '').trim();
+      ok = (expected === got);
+      if (!pick) wrongIds.push(id);
+
+    } else if (item.type === 'code'){
+      const source = String(pick ?? '');
+      let testReport = [];
+
+      if (!source.trim()){
+        ok = false;
+      } else if (!guardCode(source)){
+        ok = false;
+        testReport.push({expr:'guard', ok:false, error:'Código bloqueado por el validador de seguridad.'});
+      } else {
+        const env  = (item.validator?.runtime?.vars) || {};
+        const tests= (item.validator?.tests) || [];
+        const mode = (item.validator?.mode) || 'expr';
+        try{
+          if (mode === 'expr'){
+            const result = evalExpr(source, env);
+            ok = true;
+            for (const t of tests){
+              const pass = runTestOnResult(t, result, env);
+              testReport.push({expr:t, ok:pass});
+              ok = ok && pass;
+            }
+          } else {
+            const fnVal = evalFunction(source, env);
+            ok = true;
+            for (const t of tests){
+              const pass = runTestOnFn(t, fnVal, env);
+              testReport.push({expr:t, ok:pass});
+              ok = ok && pass;
+            }
+          }
+        } catch (e){
+          ok = false;
+          testReport.push({expr:'runtime', ok:false, error:String(e)});
+        }
+      }
+
+      const lines = testReport.map(r => `• ${r.expr}: ${r.ok?'✓':'✗'}${r.error ? ' — '+r.error : ''}`).join('\n');
+      fb.querySelector('.why').textContent = (item.explain || '') + (lines ? '\n\nPruebas:\n' + lines : '');
+      if (!pick) wrongIds.push(id);
+    }
+
+    if (ok){
+      card.classList.remove('wrong');
+      fb.classList.remove('bad'); fb.classList.add('ok');
+      fb.querySelector('.status').textContent = 'Bien trabajado.';
+    } else {
+      card.classList.add('wrong');
+      fb.classList.remove('ok'); fb.classList.add('bad');
+      fb.querySelector('.status').innerHTML =
+        (item.type === 'tri')   ? `Revisa este punto · Correcta: <b>${LABELS[item.answer].text}</b>` :
+        (item.type === 'short') ? `Revisa este punto · Correcta: <b>${item.answer}</b>` :
+                                   `Revisa este punto · Consulta las pruebas.`;
+      if (!wrongIds.includes(id)) wrongIds.push(id);
+    }
+
+    headBadge.style.display = 'inline-block';
+    results.push({ id, ok, pick, item });
+  });
+
+  // publish + UI
+  lastResult = results;
+  summarize(results);
+  applyOnlyWrongFilter();
+
+  const hasAny   = results.length > 0;
+  const hasWrong = wrongIds.length > 0;
+
+  retryBtn.disabled       = !hasWrong;
+  exportWrongBtn.disabled = !hasWrong;
+  onlyWrong.disabled      = !hasAny;
+}
+
+
+function applyOnlyWrongFilter(){
+  if (!lastResult) return;
+  const only = onlyWrong.checked;
+  const wrongSet = new Set(lastResult.filter(r => !r.ok).map(r => r.id));
+
+  document.querySelectorAll('.card').forEach(card=>{
+    if (!only) { card.style.display = ''; return; }
+    card.style.display = wrongSet.has(card.dataset.id) ? '' : 'none';
+  });
+}
+
+function retryWrongItems(){
+  if (!lastResult) return;
+  const wrongIds = new Set(lastResult.filter(r => !r.ok).map(r => r.id));
+
+  document.querySelectorAll('.card').forEach(card=>{
+    const id = card.dataset.id;
+    const fb = card.querySelector('.fb');
+    const badge = card.querySelector('.badge');
+
+    if (wrongIds.has(id)){
+      // reset wrong items for a clean reattempt
+      card.classList.remove('wrong');
+      fb.className = 'fb'; // hide feedback
+      picks.delete(id);
+
+      // reset tri chips
+      card.querySelectorAll('.chip').forEach(ch=>{
+        ch.dataset.state = 'off';
+        ch.setAttribute('aria-pressed','false');
+      });
+
+      // reset short/code inputs
+      const inp = card.querySelector('.shortbox input');
+      if (inp) inp.value = '';
+      const ta = card.querySelector('.shortbox textarea');
+      if (ta) ta.value = '';
+
+      if (badge) badge.style.display = 'none';
+      card.style.display = ''; // ensure visible
+    } else {
+      // hide items already correct
+      card.style.display = 'none';
+    }
+  });
+
+  // reset UI state
+  summaryEl.classList.add('hide');
+  retryBtn.disabled = true;
+  exportWrongBtn.disabled = true;
+  onlyWrong.checked = false;       // show the remaining wrong items
+  onlyWrong.disabled = true;       // until next correction
+  lastResult = null;               // force a fresh correction run next time
+}
+
+
+/* ========== LOADING ========== */
+async function loadJSONL(src){
+  if(!src) return FALLBACK;
+  try{
+    const res=await fetch(src,{cache:'no-store'});
+    if(!res.ok) throw new Error(res.status+' '+res.statusText);
+    const text=await res.text();
+    return text.split('\n').filter(Boolean).map(line=>JSON.parse(line));
+  }catch(e){
+    console.warn('Fallo al cargar JSONL; usando fallback.', e);
+    return FALLBACK;
+  }
+}
+
+/* ========== CONSOLE LAB CORE (works + echo values) ========== */
+const consoleLabEl = document.getElementById('consoleLab');
+const consoleInputEl = document.getElementById('consoleInput');
+const consoleOutEl = document.getElementById('consoleOutput');
+const openConsoleLabBtn = document.getElementById('openConsoleLab');
+const runConsoleBtn = document.getElementById('runConsoleText');
+const clearConsoleBtn = document.getElementById('clearConsole');
+const runAllItemsBtn = document.getElementById('runAllItems');
+
+function showLab(v=true){ consoleLabEl.classList.toggle('hide', !v); }
+function logLine(msg, cls){ const d=document.createElement('div'); d.className=cls||''; d.textContent=msg; consoleOutEl.appendChild(d); consoleOutEl.scrollTop=consoleOutEl.scrollHeight; }
+function hr(){ logLine('────────', 'l-hr'); }
+
+let runnerFrame=null;
+function ensureRunner(){
+  if(runnerFrame) return runnerFrame;
+  const iframe=document.createElement('iframe');
+  /* allow-same-origin so parent can call __runSnippet; still sandboxed from nav/UI */
+  iframe.setAttribute('sandbox','allow-scripts allow-same-origin');
+  iframe.style.display='none';
+  document.body.appendChild(iframe);
+
+  const boot = `
+<!doctype html><meta charset="utf-8">
+<script>
+(function(){
+  var __EMITS__ = 0;
+  const q = (type, payload) => { try { parent.postMessage({__console_lab__:true, type, payload}, '*'); } catch(_) {} };
+
+  ['log','info','warn','error'].forEach(k=>{
+    const orig = console[k].bind(console);
+    console[k] = function(...args){
+      __EMITS__++;
+      q('console', {level:k, args: args.map(String)});
+      return orig(...args);
+    };
+  });
+
+  window.onerror = function(msg, src, line, col, err){
+    q('error', {msg:String(msg), where:(src||'')+':'+line+':'+(col||0), stack:(err&&err.stack)? String(err.stack): ''});
+  };
+  window.addEventListener('unhandledrejection', ev=>{
+    const e = ev.reason;
+    q('error', {msg:'Unhandled Promise rejection', where:'', stack:(e && e.stack)? String(e.stack) : String(e)});
+  });
+
+  window.alert = function(){};
+
+  window.__runSnippet = function(source){
+    __EMITS__ = 0;
+    try{
+      var __VAL__ = (function(){ "use strict"; return (0,eval)(source); })();
+      return {ok:true, emitted: __EMITS__, value: __VAL__};
+    }catch(e){
+      return {ok:false, emitted: __EMITS__, error: String(e && e.message ? e.message : e)};
+    }
+  };
+})();
+<\/script>`;
+  iframe.contentDocument.open(); iframe.contentDocument.write(boot); iframe.contentDocument.close();
+  runnerFrame=iframe.contentWindow;
+
+  window.addEventListener('message', (ev)=>{
+    const d=ev.data||{}; if(!d.__console_lab__) return;
+    if(d.type==='console'){
+      const cls = d.payload.level==='warn' ? 'l-warn' : d.payload.level==='error' ? 'l-error' : d.payload.level==='info' ? 'l-info' : 'l-log';
+      logLine(`[${d.payload.level}] ${d.payload.args.join(' ')}`, cls);
+    } else if(d.type==='error'){
+      const where=d.payload.where?` @ ${d.payload.where}`:''; const stack=d.payload.stack?`\n${d.payload.stack}`:'';
+      logLine(`[error] ${d.payload.msg}${where}${stack}`,'l-error');
+    }
+  });
+  return runnerFrame;
+}
+
+function runSourceBatch(text){
+  try {
+    ensureRunner();
+    const parts = text.split(/^\/\/\s*---.*$/m).map(s=>s.trim()).filter(Boolean);
+    if (!parts.length){ logLine('[info] Nothing to run', 'l-info'); return; }
+    parts.forEach((src, i)=>{
+      hr(); logLine(`Snippet #${i+1}`, 'l-info');
+      let res;
+      try { res = runnerFrame.__runSnippet(src); }
+      catch (e) { logLine('[error] Cannot call runner: ' + e, 'l-error'); return; }
+      if (!res || !res.ok) {
+        logLine(`[error] ${res && res.error ? res.error : 'Unknown error'}`, 'l-error');
+      } else if (!res.emitted) {
+        if (typeof res.value !== 'undefined') logLine(`[result] ${String(res.value)}`, 'l-info');
+        else logLine('[info] (no console output, no expression value)', 'l-info');
+      }
+    });
+    hr();
+  } catch (e) {
+    logLine('[error] Runner failure: ' + e, 'l-error');
+  }
+}
+
+/* ========== EVENTS ========== */
+document.getElementById('loadBank').addEventListener('click', loadSelectedBank);
+document.getElementById('nextBank').addEventListener('click', async ()=>{ selectNextBank(); await loadSelectedBank(); });
+onlyWrong.addEventListener('change', applyOnlyWrongFilter);
+exportWrongBtn.addEventListener('click', exportWrongMarkdown);
+exportAllBtn.addEventListener('click', ()=> exportAllMarkdown({revealSolutions:true}));
+exportAllNoKeysBtn.addEventListener('click', ()=> exportAllMarkdown({revealSolutions:false}));
+checkBtn.addEventListener('click', correctAll);
+document.addEventListener('keydown', (e)=>{ if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){ correctAll(); } });
+
+function isTypingTarget(el) {
+  return el && (
+    el.tagName === 'INPUT' ||
+    el.tagName === 'TEXTAREA' ||
+    el.isContentEditable
+  );
+}
+
+// Focus mode arrows
+document.addEventListener('keydown', (e)=>{
+  if (!focusMode) return;
+  if (isTypingTarget(e.target)) return;        // <-- ignore while typing
+  if (e.key === 'ArrowRight') { e.preventDefault(); nextBtn.click(); }
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); prevBtn.click(); }
+});
+
+// Ctrl/⌘ + Enter to correct
+document.addEventListener('keydown', (e)=>{
+  if (isTypingTarget(e.target)) return;        // <-- optional: only correct when not typing
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    correctAll();
+  }
+});
+
+
+/* Console Lab buttons */
+document.getElementById('openConsoleLab').addEventListener('click', ()=> showLab(consoleLabEl.classList.contains('hide')));
+document.getElementById('runConsoleText').addEventListener('click', ()=> runSourceBatch(consoleInputEl.value));
+document.getElementById('clearConsole').addEventListener('click', ()=> (consoleOutEl.textContent=''));
+document.getElementById('runAllItems').addEventListener('click', ()=>{
+  if(!Array.isArray(BANK)||!BANK.length){ alert('No items loaded.'); return; }
+  const chunks = BANK.map(it=>[it?.setup||'', it?.code||''].filter(Boolean).join('\n').trim()).filter(Boolean);
+  if(!chunks.length){ alert('Bank has no runnable code.'); return; }
+  consoleInputEl.value = chunks.join('\n// ---\n');
+  consoleOutEl.textContent = '';
+  showLab(true);
+  runSourceBatch(consoleInputEl.value);
+});
+
+/* Add exercise (quick) */
+document.getElementById('addExercise').addEventListener('click', ()=>{
+  const type=document.getElementById('newType').value;
+  const id=document.getElementById('newId').value.trim();
+  const code=document.getElementById('newCode').value;
+  const answer=document.getElementById('newAns').value.trim();
+  const hint=document.getElementById('newHint').value.trim();
+  const explain=document.getElementById('newExplain').value.trim();
+  const setup=document.getElementById('newSetup').value;
+  const validatorText=document.getElementById('newValidator').value.trim();
+
+  if(type==='short' && (!id||!code||!answer)){ alert("Para SHORT rellena ID, código y respuesta esperada."); return; }
+  if(type==='tri' && (!id||!code)){ alert("Para TRI rellena ID y código."); return; }
+  if(type==='code' && !validatorText){ alert("Para CODE añade un Validator (JSON)."); return; }
+
+  const base={ id, type, tier:2, lang:"es", category:"Operadores y Expresiones",
+    subcat: type==="tri" ? "clasificacion" : (type==="short" ? "alert-output" : "validator"),
+    question: type==="tri" ? "Clasifica la expresión" : (type==="short" ? "¿Qué muestra el console.log?" : undefined)
+  };
+  const item = {...base, code, hint, explain};
+  if(type==="tri"){
+    item.options=["correct","variable","incorrect"];
+    item.answer = ["correct","variable","incorrect"].includes(answer) ? answer : "variable";
+  }else if(type==="short"){
+    item.answer=answer; if(setup) item.setup=setup;
+  }else if(type==="code"){
+    if(setup) item.setup=setup;
+    try{ item.validator = JSON.parse(validatorText); }catch(e){ alert("Validator JSON inválido"); return; }
+  }
+  BANK.push(item); window.BANK=BANK; render(); alert(`Ejercicio ${id} añadido.`);
+});
+
+
+
+/* INIT */
+(async function init(){
+  const hasDefault = Array.from(bankSelect.options).some(o=>o.value===DATA_SRC);
+  bankSelect.value = hasDefault ? DATA_SRC : (bankSelect.options[0]?.value || "");
+  if(!bankSelect.value){ BANK = FALLBACK.slice(); window.BANK=BANK; render(); return; }
+  await loadSelectedBank();
+  // NEW:
+  loadConceptForBank(bankSelect.value);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>BenchProof_JSONL (SPOTTED) — TriWise Trainer</title>
+
+ <link rel="stylesheet" type="text/css" href="css/tri_wise_styles.css" />
+</head>
+<body>
+<script src="tri_wise_script.js"></script>
+  <h1>TriWise Trainer</h1>
+  <p class="sub">
+    <b>tri</b>: clasifica (Correcta / Variable / Incorrecta) ·
+    <b>short</b>: escribe el valor que imprime <code>console.log</code> ·
+    <b>code</b>: pasa las pruebas (validador).
+  </p>
+ <input id="bankPicker" type="file" accept=".jsonl" style="display:none">
+
+  <!-- DASHBOARD (coherent zones) -->
+  <div class="dashboard">
+    <!-- Load & Validate -->
+    <div class="zone load" aria-label="Carga y validación">
+      <span class="zone-title">Load & Validate</span>
+      <select id="bankSelect" title="Selecciona banco">
+        <option value="default_showcase.jsonl">Default Showcase (all modes)</option>
+       <option value="default_questionnaire.jsonl">Default</option>
+      
+       
+      </select>
+      <button id="loadBank" class="btn secondary">Cargar banco</button>
+      <button id="nextBank" class="btn secondary">Siguiente banco ▸</button>
+
+      <span style="width:1px; height:24px; background:var(--zone-load-br); opacity:.6;"></span>
+
+      <button id="check" class="btn" title="Ctrl/⌘+Enter">Corregir</button>
+      <button id="retryWrong" class="btn secondary" disabled>Reintentar fallos</button>
+      <label class="toggle"><input type="checkbox" id="onlyWrong"/> Mostrar sólo fallos</label>
+      <span style="width:1px; height:24px; background:var(--zone-load-br); opacity:.6;"></span>
+
+    <label class="toggle">
+    <input type="checkbox" id="focusMode"/> Focus mode
+    </label>
+    
+
+<div class="focus-nav">
+  <button id="prevItem" class="btn tiny secondary" disabled>◂ Prev</button>
+  <button id="nextItem" class="btn tiny secondary" disabled>Next ▸</button>
+  <span class="pos" id="focusPos"></span>
+</div>
+
+<span style="width:1px; height:24px; background:var(--zone-load-br); opacity:.6;"></span>
+
+<button id="themeSwitch" class="btn secondary tiny" title="Light/Dim">Theme</button><span style="width:1px; height:24px; background:var(--zone-load-br); opacity:.6;"></span>
+<!-- PATCH: score widgets + sparkline -->
+ <button id="scoreReset" class="btn tiny secondary">Reset Score</button>
+<button id="scoreResetAll" class="btn tiny danger">Reset Score + History</button>
+
+<label class="inline">
+  Score mode:
+  <select id="scoreMode">
+    <option value="accumulate">Accumulate</option>
+    <option value="fresh-on-load">Fresh on load</option>
+    <option value="fresh-manual">Manual reset</option>
+  </select>
+</label>
+
+<span id="scoreBadge" class="badge" title="Cumulative score for this bank">Score: 0/0 (0%)</span>
+<div id="scoreBarWrap" style="flex:1 1 160px; height:8px; border-radius:999px; background:var(--border); overflow:hidden; max-width:220px;">
+  <div id="scoreBar" style="height:100%; width:0%; background:var(--ok); transition:width .25s ease;"></div>
+</div>
+<canvas id="bankSpark" width="140" height="28" style="display:block;"></canvas>
+
+    </div>
+
+    <!-- Markdown Exports -->
+    <div class="zone export" aria-label="Exportar a Markdown">
+      <span class="zone-title">Markdown Exports</span>
+      <button id="exportWrong" class="btn secondary" disabled>Exportar fallos → MD</button>
+      <button id="exportWrongJSONL" class="btn secondary" disabled>Export mistakes → JSONL</button>
+
+      <button id="exportAll" class="btn secondary">Exportar todo → MD</button>
+      <button id="exportAllNoKeys" class="btn secondary">Exportar todo (sin soluciones)</button>
+    </div>
+
+    <!-- Console area -->
+    <div class="zone console" aria-label="Consola">
+      <span class="zone-title">Console Lab</span>
+      <button id="openConsoleLab" class="btn secondary">Mostrar/Ocultar</button>
+      <button id="runAllItems" class="btn secondary tiny" title="Ejecuta todo el banco cargado">Run all in bank</button>
+      <div id="consoleLab" class="console-lab hide" aria-live="polite" style="flex:1 1 100%;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;">
+          <strong>Console Lab</strong>
+          <div style="display:flex; gap:8px;">
+            <button id="runConsoleText" class="btn tiny">Run</button>
+            <button id="clearConsole" class="btn tiny secondary">Clear</button>
+          </div>
+        </div>
+        <div class="row" style="display:flex; gap:8px; align-items:center; margin:6px 0 10px;">
+          <textarea id="consoleInput" placeholder="// Type or paste JS. Use \"// ---\" to split multiple snippets.
+console.log(2 + 3 * 4);
+// ---
+let x=5; console.log(x++, x);" 
+            style="width:100%; min-height:140px; resize:vertical; font-family:ui-monospace,Consolas,monospace; font-size:14px; border:1px solid var(--border); border-radius:10px; padding:8px 10px; background:var(--bg);"></textarea>
+        </div>
+        <div id="consoleOutput" class="console-output" role="log"></div>
+        <small class="sub">Sandboxed; capturamos <code>console.*</code>, errores y rechazos. <code>alert()</code> neutralizado. Delimitador: <code>// ---</code>. Si no hay logs, mostramos el valor de la última expresión.</small>
+      </div>
+    </div>
+  </div>
+
+  <details style="margin:12px 0">
+    <summary style="cursor:pointer">➕ Crear ejercicio rápido</summary>
+    <div style="padding:10px 0; display:grid; gap:8px">
+      <label>Tipo
+        <select id="newType">
+          <option value="tri">tri (clasificación)</option>
+          <option value="short">short (respuesta corta)</option>
+          <option value="code">code (validador)</option>
+        </select>
+      </label>
+      <label>ID <input id="newId" placeholder="SP2-8"/></label>
+      <label>Código / Respuesta / Solución
+        <textarea id="newCode" rows="3" placeholder="console.log(1+2); // o una expresión / función"></textarea>
+      </label>
+      <label>Respuesta esperada (solo SHORT) <input id="newAns" placeholder="3"/></label>
+      <label>Pista (hover) <input id="newHint" placeholder="Suma básica"/></label>
+      <label>Explicación (tono Cambridge)
+        <textarea id="newExplain" rows="3" placeholder="La expresión suma 1 y 2..."></textarea>
+      </label>
+      <label>Setup (opcional, estado previo)
+        <textarea id="newSetup" rows="2" placeholder="let x=1;"></textarea>
+      </label>
+      <label>Validator (JSON, solo CODE)
+        <textarea id="newValidator" rows="3" placeholder='{"mode":"expr","tests":["result>0"],"runtime":{"vars":{"a":2}}}'></textarea>
+      </label>
+      <button id="addExercise" class="btn secondary">Añadir al banco actual</button>
+    </div>
+  </details>
+
+<div class="tabs">
+  <button class="tab-btn" data-tab="ex" data-active="true">Exercises</button>
+  <button class="tab-btn" data-tab="cx">Concepts</button>
+</div>
+<div class="panels">
+  <div id="panel-ex" class="panel show">
+    <div id="list" class="list"></div>
+    <div id="summary" class="summary hide"></div>
+  </div>
+  <div id="panel-cx" class="panel">
+    <div class="card" style="margin-bottom:10px">
+      <div class="head" style="margin:0 0 6px 0">
+        <strong>Concept sheet</strong>
+        <div class="righthead">
+          <button id="cxReload" class="btn tiny secondary">Reload .md</button>
+          <button id="cxSave" class="btn tiny">Save notes</button>
+          <button id="cxExport" class="btn tiny secondary">Export .md</button>
+          <button id="cxImport" class="btn tiny secondary">Import .md</button>
+          <input id="cxImportFile" type="file" accept=".md,text/markdown" style="display:none">
+
+        </div>
+      </div>
+      <div class="meta" id="cxInfo">Bank: —</div>
+      <div style="display:grid; gap:8px">
+        <textarea id="cxEdit" rows="8" placeholder="Write notes or paste definitions…"
+          style="width:100%; resize:vertical; font-family:ui-monospace,Consolas,monospace; border:1px solid var(--border); border-radius:10px; padding:8px 10px;"></textarea>
+        <div id="cxView" class="code" style="white-space:normal;"></div>
+        <small class="sub">Loads sibling Markdown (same filename, <code>.md</code>). Your edits are saved in <i>localStorage</i> per bank.</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+<!-- end of body -->
+<!-- near the end of <body> is fine, but defer makes it safe anywhere -->
+<script defer src="js/index.js"></script>
+
+
+
+</body>
+</html>

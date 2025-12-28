@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Week 2 – Lab Sheet</title>
+
+<style>
+/* ===========================
+   Base + Container Styling
+=========================== */
+
+body {
+    font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+    background: #f4f6fa;
+    color: #222;
+    margin: 0;
+    padding: 2rem 1rem;
+    line-height: 1.6;
+}
+
+.page {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 2.2rem 2.5rem;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+/* ===========================
+   Headings
+=========================== */
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+/* ===========================
+   Task Cards
+=========================== */
+
+.task {
+    background: #f9fafc;
+    border: 1px solid #e2e5ef;
+    border-radius: 14px;
+    padding: 1.3rem 1.4rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    transition: 0.2s ease;
+}
+
+.task:hover {
+    background: #fbfcff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.task-number {
+    display: inline-block;
+    background: #4c6fff;
+    color: white;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-right: 0.4rem;
+}
+
+.task h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.4rem;
+}
+
+.task p {
+    margin-bottom: 0.6rem;
+    color: #444;
+}
+
+/* Inline code */
+code {
+    background: #eef1ff;
+    padding: 0.15rem 0.4rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+/* ===========================
+   Footer
+=========================== */
+
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+    <h1>CSS Week 2 – Lab Sheet</h1>
+    <p class="subtitle">10 Practical Tasks to Master the Box Model, Typography, Colors, and Layout</p>
+
+
+    <!-- TASK 1 -->
+    <div class="task">
+        <span class="task-number">1</span>
+        <h2>Create a Basic Box Using Margin, Padding, and Border</h2>
+        <p>
+            In your stylesheet, create a selector called <code>.box</code> and assign:
+        </p>
+        <ul>
+            <li>A width</li>
+            <li>Padding on all sides</li>
+            <li>A visible border</li>
+            <li>A margin to separate it from other elements</li>
+        </ul>
+    </div>
+
+
+    <!-- TASK 2 -->
+    <div class="task">
+        <span class="task-number">2</span>
+        <h2>Style a Title + Paragraph for Readability</h2>
+        <p>
+            Style <code>h1</code> and <code>p</code> with:
+        </p>
+        <ul>
+            <li>Font sizing</li>
+            <li>Text alignment</li>
+            <li>Line height</li>
+            <li>Letter-spacing (optional)</li>
+        </ul>
+    </div>
+
+
+    <!-- TASK 3 -->
+    <div class="task">
+        <span class="task-number">3</span>
+        <h2>Create a Colored Section</h2>
+        <p>
+            Make a class <code>.section</code> with a soft background color and contrasting text using <code>color</code> and <code>background-color</code>.
+        </p>
+    </div>
+
+
+    <!-- TASK 4 -->
+    <div class="task">
+        <span class="task-number">4</span>
+        <h2>Round the Corners of a Box</h2>
+        <p>
+            Add <code>border-radius</code> to any element (for example, a card or image).  
+            Try different values: <code>6px</code>, <code>12px</code>, <code>50%</code>.
+        </p>
+    </div>
+
+
+    <!-- TASK 5 -->
+    <div class="task">
+        <span class="task-number">5</span>
+        <h2>Make a Horizontal Flex Layout</h2>
+        <p>Create a container with class <code>.flex-row</code> containing 3 boxes.</p>
+        <ul>
+            <li>Apply <code>display: flex;</code></li>
+            <li>Use <code>gap:</code> to space the items</li>
+            <li>Use <code>justify-content:</code> to align them</li>
+        </ul>
+    </div>
+
+
+    <!-- TASK 6 -->
+    <div class="task">
+        <span class="task-number">6</span>
+        <h2>Create a 3-Column Grid</h2>
+        <p>
+            Create a container with class <code>.grid-3</code> and apply:
+        </p>
+        <ul>
+            <li><code>display: grid;</code></li>
+            <li><code>grid-template-columns: repeat(3, 1fr);</code></li>
+            <li><code>gap:</code> for spacing</li>
+        </ul>
+    </div>
+
+
+    <!-- TASK 7 -->
+    <div class="task">
+        <span class="task-number">7</span>
+        <h2>Experiment with List Styles</h2>
+        <p>
+            Style <code>ul</code> and <code>ol</code> using:
+        </p>
+        <ul>
+            <li><code>list-style-type</code> (circle, square, decimal, none…)</li>
+            <li><code>padding-left</code> to control indentation</li>
+        </ul>
+    </div>
+
+
+    <!-- TASK 8 -->
+    <div class="task">
+        <span class="task-number">8</span>
+        <h2>Style a Link with Hover Effects</h2>
+        <p>
+            Style <code>a</code> and <code>a:hover</code> with:
+        </p>
+        <ul>
+            <li><code>color</code></li>
+            <li><code>text-decoration</code></li>
+            <li>Optional: Create a button-style link using <code>padding</code>, <code>background</code>, and <code>border-radius</code>.</li>
+        </ul>
+    </div>
+
+
+    <!-- TASK 9 -->
+    <div class="task">
+        <span class="task-number">9</span>
+        <h2>Position an Element Using Relative + Absolute</h2>
+        <p>
+            Inside a <code>.wrapper</code> (set to <code>position: relative;</code>), place a small box at the top-right corner using:
+        </p>
+        <ul>
+            <li><code>position: absolute;</code></li>
+            <li><code>top:</code> and <code>right:</code></li>
+        </ul>
+    </div>
+
+
+    <!-- TASK 10 -->
+    <div class="task">
+        <span class="task-number">10</span>
+        <h2>Create a Responsive Adjustment</h2>
+        <p>
+            Write a small media query:
+        </p>
+        <pre><code>@media (max-width: 600px) {
+    /* Change width, flex direction, or font size */
+}</code></pre>
+    </div>
+
+
+    <footer>
+        CSS Week 2 Lab Sheet — Designed for structured classroom practice.
+    </footer>
+
+</div>
+</body>
+</html>

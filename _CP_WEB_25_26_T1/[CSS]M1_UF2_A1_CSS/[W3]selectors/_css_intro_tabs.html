@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CSS Intro – Properties & HTML Elements</title>
+  <style>
+    /* ===== PAGE LAYOUT ===== */
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ===== TABS CONTAINER ===== */
+    .tabs {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 1rem;
+    }
+
+    /* Hide the radio buttons */
+    .tabs input[type="radio"] {
+      display: none;
+    }
+
+    /* Tab labels (the clickable “tabs”) */
+    .tab-labels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 1rem;
+    }
+
+    .tab-label {
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px 8px 0 0;
+      border: 1px solid transparent;
+      border-bottom: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      background: #eee;
+      color: #333;
+    }
+
+    .tab-label:hover {
+      background: #e0e0e0;
+    }
+
+    /* Active tab states (one per tab) */
+    #tab-text:checked  ~ .tab-labels label[for="tab-text"],
+    #tab-box:checked   ~ .tab-labels label[for="tab-box"],
+    #tab-spacing:checked ~ .tab-labels label[for="tab-spacing"],
+    #tab-align:checked ~ .tab-labels label[for="tab-align"],
+    #tab-display:checked ~ .tab-labels label[for="tab-display"] {
+      background: #ffffff;
+      border-color: #ddd;
+      border-bottom: 1px solid #ffffff;
+      font-weight: 600;
+    }
+
+    /* Tab panels (content) */
+    .tab-panel {
+      display: none;
+      padding-top: 0.5rem;
+    }
+
+    #tab-text:checked    ~ .tab-panel#panel-text,
+    #tab-box:checked     ~ .tab-panel#panel-box,
+    #tab-spacing:checked ~ .tab-panel#panel-spacing,
+    #tab-align:checked   ~ .tab-panel#panel-align,
+    #tab-display:checked ~ .tab-panel#panel-display {
+      display: block;
+    }
+
+    /* ===== EXAMPLE BOX & CODE BLOCKS ===== */
+    .example-wrapper {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 800px) {
+      .example-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .live-example {
+      background: #fafafa;
+      border-radius: 8px;
+      padding: 0.75rem 1rem 1rem;
+      border: 1px solid #e0e0e0;
+    }
+
+    .live-example h3 {
+      margin-top: 0;
+      font-size: 1rem;
+    }
+
+    .explain {
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 0.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .demo-area {
+      border-radius: 6px;
+      padding: 1rem;
+      background: #ffffff;
+      border: 1px dashed #ccc;
+      min-height: 60px;
+    }
+
+    pre {
+      background: #1e1e1e;
+      color: #f5f5f5;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .panel-title {
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    .panel-note {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      background: #eef3ff;
+      color: #3040aa;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      margin-left: 0.3rem;
+    }
+
+    /* ===== DEMO-SPECIFIC STYLES ===== */
+
+    /* TEXT TAB */
+    .demo-text p {
+      color: darkblue;
+      font-size: 20px;
+    }
+
+    /* BOX TAB */
+    .demo-box .card {
+      width: 220px;
+      height: 120px;
+      background-color: #fdefc3;
+      border: 2px solid #c59b42;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    /* SPACING TAB */
+    .demo-spacing .block {
+      background-color: #f0f8ff;
+      border: 1px solid #339;
+      padding: 15px; /* inside space */
+      margin: 15px;  /* outside space */
+    }
+
+    /* ALIGN TAB */
+    .demo-align .box {
+      border: 1px solid #666;
+      padding: 10px;
+      text-align: center;
+    }
+
+    /* DISPLAY TAB */
+    .demo-display .item {
+      display: inline-block;
+      background: #e0f7fa;
+      border: 1px solid #0097a7;
+      padding: 6px 10px;
+      margin: 4px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>CSS Properties & HTML Elements</h1>
+    <p class="subtitle">
+      Each tab shows: <strong>which element</strong> we style, <strong>which CSS property</strong> we use, and a <strong>live example</strong>.
+    </p>
+
+    <div class="tabs">
+      <!-- Radios (one per tab) -->
+      <input type="radio" name="tabs" id="tab-text" checked />
+      <input type="radio" name="tabs" id="tab-box" />
+      <input type="radio" name="tabs" id="tab-spacing" />
+      <input type="radio" name="tabs" id="tab-align" />
+      <input type="radio" name="tabs" id="tab-display" />
+
+      <!-- Tab labels -->
+      <div class="tab-labels">
+        <label class="tab-label" for="tab-text">Text &amp; Color</label>
+        <label class="tab-label" for="tab-box">Box &amp; Background</label>
+        <label class="tab-label" for="tab-spacing">Spacing (Margin / Padding)</label>
+        <label class="tab-label" for="tab-align">Text Alignment</label>
+        <label class="tab-label" for="tab-display">Display (Block / Inline)</label>
+      </div>
+
+      <!-- PANEL: TEXT -->
+      <div class="tab-panel" id="panel-text">
+        <p class="panel-title">
+          Text properties <span class="badge">target: &lt;p&gt;</span>
+        </p>
+        <p class="panel-note">
+          We style the text <em>inside</em> the paragraph element using <code>color</code> and <code>font-size</code>.
+        </p>
+        <div class="example-wrapper demo-text">
+          <!-- Live example -->
+          <div class="live-example">
+            <h3>Live example</h3>
+            <p class="explain">This is the actual paragraph being styled.</p>
+            <div class="demo-area">
+              <p>This paragraph is blue and slightly larger.</p>
+            </div>
+          </div>
+
+          <!-- Code pairing -->
+          <div class="live-example">
+            <h3>HTML + CSS pairing</h3>
+            <p class="explain">Which element? <strong>&lt;p&gt;</strong> — Which properties? <strong>color</strong>, <strong>font-size</strong>.</p>
+            <pre><code>&lt;!-- HTML --&gt;
+&lt;p&gt;This paragraph is blue and slightly larger.&lt;/p&gt;
+
+&lt;!-- CSS --&gt;
+p {
+  color: darkblue;
+  font-size: 20px;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: BOX -->
+      <div class="tab-panel" id="panel-box">
+        <p class="panel-title">
+          Box properties <span class="badge">target: &lt;div class="card"&gt;</span>
+        </p>
+        <p class="panel-note">
+          Here we style a <code>&lt;div&gt;</code> as a card: background, size, border, rounded corners.
+        </p>
+        <div class="example-wrapper demo-box">
+          <!-- Live example -->
+          <div class="live-example">
+            <h3>Live example</h3>
+            <p class="explain">The box below is our <code>&lt;div class="card"&gt;</code>.</p>
+            <div class="demo-area">
+              <div class="card">
+                <strong>Card title</strong><br />
+                This is a simple content box.
+              </div>
+            </div>
+          </div>
+
+          <!-- Code pairing -->
+          <div class="live-example">
+            <h3>HTML + CSS pairing</h3>
+            <pre><code>&lt;!-- HTML --&gt;
+&lt;div class="card"&gt;
+  &lt;strong&gt;Card title&lt;/strong&gt;&lt;br /&gt;
+  This is a simple content box.
+&lt;/div&gt;
+
+&lt;!-- CSS --&gt;
+.card {
+  width: 220px;
+  height: 120px;
+  background-color: #fdefc3;
+  border: 2px solid #c59b42;
+  border-radius: 10px;
+  padding: 10px;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: SPACING -->
+      <div class="tab-panel" id="panel-spacing">
+        <p class="panel-title">
+          Spacing <span class="badge">target: &lt;div class="block"&gt;</span>
+        </p>
+        <p class="panel-note">
+          <strong>Padding</strong> is space <em>inside</em> the element; <strong>margin</strong> is space <em>outside</em> the element.
+        </p>
+        <div class="example-wrapper demo-spacing">
+          <!-- Live example -->
+          <div class="live-example">
+            <h3>Live example</h3>
+            <p class="explain">
+              Notice the distance between the border and the text (padding), and the distance between this box and other content (margin).
+            </p>
+            <div class="demo-area">
+              <div class="block">
+                This block has padding and margin.<br />
+                The text does not touch the border.
+              </div>
+            </div>
+          </div>
+
+          <!-- Code pairing -->
+          <div class="live-example">
+            <h3>HTML + CSS pairing</h3>
+            <pre><code>&lt;!-- HTML --&gt;
+&lt;div class="block"&gt;
+  This block has padding and margin.
+&lt;/div&gt;
+
+&lt;!-- CSS --&gt;
+.block {
+  background-color: #f0f8ff;
+  border: 1px solid #339;
+  padding: 15px; /* inside space */
+  margin: 15px;  /* outside space */
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: ALIGN -->
+      <div class="tab-panel" id="panel-align">
+        <p class="panel-title">
+          Text alignment <span class="badge">target: &lt;div class="box"&gt;</span>
+        </p>
+        <p class="panel-note">
+          <code>text-align</code> affects how inline content (like text) is arranged inside the element.
+        </p>
+        <div class="example-wrapper demo-align">
+          <!-- Live example -->
+          <div class="live-example">
+            <h3>Live example</h3>
+            <p class="explain">The text in this box is centered horizontally.</p>
+            <div class="demo-area">
+              <div class="box">
+                This text is centered inside the box.
+              </div>
+            </div>
+          </div>
+
+          <!-- Code pairing -->
+          <div class="live-example">
+            <h3>HTML + CSS pairing</h3>
+            <pre><code>&lt;!-- HTML --&gt;
+&lt;div class="box"&gt;
+  This text is centered inside the box.
+&lt;/div&gt;
+
+&lt;!-- CSS --&gt;
+.box {
+  border: 1px solid #666;
+  padding: 10px;
+  text-align: center;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: DISPLAY -->
+      <div class="tab-panel" id="panel-display">
+        <p class="panel-title">
+          Display <span class="badge">target: &lt;span class="item"&gt;</span>
+        </p>
+        <p class="panel-note">
+          Here we use <code>display: inline-block;</code> so small boxes can sit next to each other.
+        </p>
+        <div class="example-wrapper demo-display">
+          <!-- Live example -->
+          <div class="live-example">
+            <h3>Live example</h3>
+            <p class="explain">Each label below is a styled <code>&lt;span&gt;</code> element.</p>
+            <div class="demo-area">
+              <span class="item">Tag 1</span>
+              <span class="item">Tag 2</span>
+              <span class="item">Tag 3</span>
+            </div>
+          </div>
+
+          <!-- Code pairing -->
+          <div class="live-example">
+            <h3>HTML + CSS pairing</h3>
+            <pre><code>&lt;!-- HTML --&gt;
+&lt;span class="item"&gt;Tag 1&lt;/span&gt;
+&lt;span class="item"&gt;Tag 2&lt;/span&gt;
+&lt;span class="item"&gt;Tag 3&lt;/span&gt;
+
+&lt;!-- CSS --&gt;
+.item {
+  display: inline-block;
+  background: #e0f7fa;
+  border: 1px solid #0097a7;
+  padding: 6px 10px;
+  margin: 4px;
+  border-radius: 6px;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- /tabs -->
+  </div> <!-- /page -->
+</body>
+</html>

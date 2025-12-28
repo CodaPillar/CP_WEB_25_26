@@ -1,0 +1,160 @@
+PHASE 1 — Create VM #1: Debian 13 CLI (SERVER)
+
+We will only create the VM and attach the ISO in this step.
+No installation yet.
+
+STEP 1 — Create the VM (VirtualBox)
+
+Open VirtualBox
+
+Click New
+
+Fill the fields exactly like this:
+
+Name:
+
+Deb13_CLI_Server
+
+
+Folder:
+This should already show:
+
+D:\VM_DATA
+
+
+(If it doesn’t, stop and tell me.)
+
+Type: Linux
+
+Version: Debian (64-bit)
+
+Click Next.
+
+📸 SCREENSHOT #1 (VERY IMPORTANT)
+
+Take a screenshot now showing:
+
+VM name
+
+Type = Linux
+
+Version = Debian (64-bit)
+
+This is proof of correct VM creation.
+
+STEP 2 — Hardware (teacher-aligned)
+
+Set:
+
+Memory (RAM): 4096 MB (4 GB)
+
+Processors (CPU): 2
+
+Click Next.
+
+📸 SCREENSHOT #2
+
+Screenshot showing:
+
+4096 MB RAM
+
+2 CPUs
+
+STEP 3 — Virtual Hard Disk
+
+Choose:
+
+Create a virtual hard disk now
+
+Click Create
+
+Then:
+
+VDI (VirtualBox Disk Image) → Next
+
+Dynamically allocated → Next
+
+Disk size:
+
+120 GB
+
+
+Click Create.
+
+This size is safe, generous, and teacher-proof.
+
+📸 SCREENSHOT #3
+
+Screenshot showing:
+
+Disk type = VDI
+
+Dynamic
+
+Size = 120 GB
+
+STEP 4 — Attach the Debian ISO
+
+Select Deb13_CLI_Server
+
+Click Settings
+
+Go to Storage
+
+Under Controller IDE:
+
+Click Empty
+
+Click the CD icon
+
+Choose Choose a disk file
+
+Select:
+
+D:\VM_DATA\ISO\debian-13.2.0-amd64-netinst.iso
+
+
+Click OK.
+
+📸 SCREENSHOT #4 (CRUCIAL)
+
+Screenshot showing:
+
+ISO attached
+
+Filename visible
+
+Under Controller IDE
+
+This proves you used the correct installer image.
+
+STOP POINT — DO NOT START THE VM YET
+
+Please confirm all of the following:
+
+VM exists: Deb13_CLI_Server
+
+RAM = 4096 MB
+
+CPU = 2
+
+Disk = 120 GB (dynamic)
+
+ISO attached: debian-13.2.0-amd64-netinst.iso
+
+Once you confirm, we proceed to:
+
+👉 Booting the VM + Debian installer (CLI only)
+👉 With exact choices for:
+
+UEFI
+
+Partitioning
+
+SSH server
+
+No desktop
+
+You’re doing this exactly the way your teacher expects.
+
+sshd -T | egrep 'passwordauthentication|kbdinteractiveauthentication|permitrootlogin'

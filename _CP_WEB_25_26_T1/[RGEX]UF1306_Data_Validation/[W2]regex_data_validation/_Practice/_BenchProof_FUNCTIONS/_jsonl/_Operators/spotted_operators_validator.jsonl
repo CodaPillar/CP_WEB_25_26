@@ -1,0 +1,19 @@
+{
+	"id": "VAL1",
+	"type": "code",
+	"tier": 2,
+	"lang": "es",
+	"category": "Operadores",
+	"subcat": "val_expr_igualdad",
+	"prompt": "Escribe una expresión que sea estrictamente igual a 10.",
+	"scaffold": "/* escribe aquí una sola expresión */ 5*2",
+	"validator": {
+		"mode": "expr",
+		"tests": ["result === 10"]
+	},
+	"hint": "Puedes usar aritmética básica o precedencia.",
+	"explain": "La expresión debe evaluar exactamente a 10 sin efectos laterales."
+}
+
+{"id": "VAL2", "type": "code", "tier": 2, "lang": "es", "category": "Operadores", "subcat": "val_expr_logicos", "prompt": "Escribe una expresión que devuelva un valor *truthy*.", "scaffold": "/* cualquier expresión truthy */ 'ok'", "validator": {"mode": "expr", "tests": ["== true || !!_ === true"]}, "hint": "Recuerda qué valores son *falsy* (0, '', null, undefined, NaN, false).", "explain": "Cualquier valor que coaccione a `true` es válido; por ejemplo una cadena no vacía o un número distinto de 0."}
+{"id": "VAL3", "type": "code", "tier": 2, "lang": "es", "category": "Operadores", "subcat": "val_func_pred", "prompt": "Escribe una función (arrow) que reciba un número y devuelva `true` si es par.", "scaffold": "/* p.ej. (n)=> n%2===0 */ (n)=> (n%2)===0", "validator": {"mode": "function", "calls": [{"args": [2], "expect": true}, {"args": [3], "expect": false}, {"args": [10], "expect": true}]}, "hint": "Arrow function: `(n)=> /* ... */`. Devuelve booleano.", "explain": "Se evalúa tu función con tres entradas. Debe devolver `true` para pares y `false` para impares."}

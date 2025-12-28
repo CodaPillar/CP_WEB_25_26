@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Week 2 – Cookbook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+        background: #f4f4f7;
+        padding: 2rem 1rem;
+        color: #222;
+        line-height: 1.6;
+      }
+
+      .page {
+        max-width: 980px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 2rem 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        font-size: 1.9rem;
+        margin-bottom: 1.2rem;
+      }
+
+      h2 {
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      details {
+        margin-bottom: 1rem;
+        background: #fafafa;
+        border-radius: 8px;
+        border: 1px solid #e4e4e4;
+        padding: 0.8rem 1rem;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 600;
+      }
+      summary:hover {
+        color: #4c6fff;
+      }
+
+      code {
+        background: #f0f0f5;
+        padding: 0.15rem 0.3rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+      }
+
+      pre {
+        background: #1d1f21;
+        color: #e6e6e6;
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin-top: 0.6rem;
+        font-size: 0.85rem;
+      }
+      pre {
+        background: #1e1e1e; /* dark grey, not pure black */
+        color: #f8f8f2; /* bright high-contrast text */
+      }
+
+      pre code {
+        color: #f8f8f2; /* ensure code inherits readable color */
+      }
+      /* MAKE ALL CODE SNIPPETS READABLE */
+      pre,
+      pre code {
+        background: #1e1e1e !important; /* VS Code dark */
+        color: #f8f8f2 !important; /* bright readable text */
+      }
+
+      /* Optional syntax coloring to make comments & properties readable */
+      pre code .comment {
+        color: #7c7c7c !important;
+      }
+      pre code .selector {
+        color: #a6e22e !important;
+      }
+      pre code .property {
+        color: #66d9ef !important;
+      }
+      pre code .value {
+        color: #fd971f !important;
+      }
+      pre code .punctuation {
+        color: #f8f8f2 !important;
+      }
+
+      .testbox {
+        margin-top: 0.7rem;
+        padding: 1rem;
+        background: #f5f7ff;
+        border-radius: 6px;
+        border: 1px solid #dbe1ff;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="page">
+      <h1>CSS Week 2 — Classroom Cookbook</h1>
+      <p>
+        An ultra-practical companion to your Definitions Page. Each block is a
+        tiny “recipe” to test in VS Code.
+      </p>
+
+      <!-------------------------------------------------------------->
+      <!-- BOX MODEL RECIPES -->
+      <!-------------------------------------------------------------->
+      <h2>🍱 Box Model</h2>
+
+      <details>
+        <summary>1) Simple Card (margin + padding + border)</summary>
+        <pre><code>/* CSS */
+.card {
+  width: 300px;
+  padding: 20px;
+  margin: 20px auto;
+  background: #fafafa;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;div class="card"&gt;Hello, I’m a card!&lt;/div&gt;
+        </div>
+      </details>
+
+      <details>
+        <summary>2) Center a Box Horizontally (classic margin auto)</summary>
+        <pre><code>/* CSS */
+.center-box {
+  width: 200px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: #e9f0ff;
+}</code></pre>
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;div class="center-box"&gt;Centered box&lt;/div&gt;
+        </div>
+      </details>
+
+      <details>
+        <summary>3) Space Between Elements (margin-bottom)</summary>
+        <pre><code>/* CSS */
+.block {
+  background: #eee;
+  margin-bottom: 12px;
+  padding: 10px;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;div class="block"&gt;One&lt;/div&gt;<br />
+          &lt;div class="block"&gt;Two&lt;/div&gt;
+        </div>
+      </details>
+
+      <!-------------------------------------------------------------->
+      <!-- TYPOGRAPHY RECIPES -->
+      <!-------------------------------------------------------------->
+      <h2>🔤 Typography</h2>
+
+      <details>
+        <summary>4) Nice Title + Paragraph Text</summary>
+        <pre><code>/* CSS */
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;h1&gt;Hello&lt;/h1&gt;<br />
+          &lt;p&gt;A paragraph to see spacing and readability.&lt;/p&gt;
+        </div>
+      </details>
+
+      <details>
+        <summary>5) Center Text + Capitalize</summary>
+        <pre><code>/* CSS */
+.title {
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+}</code></pre>
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;h2 class="title"&gt;section header&lt;/h2&gt;
+        </div>
+      </details>
+
+      <!-------------------------------------------------------------->
+      <!-- LAYOUT (FLEX + GRID) -->
+      <!-------------------------------------------------------------->
+      <h2>📐 Layout (Flex &amp; Grid)</h2>
+
+      <details>
+        <summary>6) Flex Center (horizontal + vertical)</summary>
+        <pre><code>/* CSS */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background: #f0f0f5;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;div class="flex-center"&gt;Centered&lt;/div&gt;
+        </div>
+      </details>
+
+      <details>
+        <summary>7) Two Columns with Flex</summary>
+        <pre><code>/* CSS */
+.columns {
+  display: flex;
+  gap: 1rem;
+}
+
+.col {
+  flex: 1;
+  padding: 1rem;
+  background: #e8ffd9;
+  border-radius: 6px;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;div class="columns"&gt;<br />
+          &nbsp;&nbsp;&lt;div class="col"&gt;Left&lt;/div&gt;<br />
+          &nbsp;&nbsp;&lt;div class="col"&gt;Right&lt;/div&gt;<br />
+          &lt;/div&gt;
+        </div>
+      </details>
+
+      <details>
+        <summary>8) 3-Column Grid</summary>
+        <pre><code>/* CSS */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.grid-box {
+  background: #ffe9e9;
+  padding: 1rem;
+  border-radius: 6px;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;div class="grid-3"&gt;<br />
+          &nbsp;&nbsp;&lt;div class="grid-box"&gt;1&lt;/div&gt;<br />
+          &nbsp;&nbsp;&lt;div class="grid-box"&gt;2&lt;/div&gt;<br />
+          &nbsp;&nbsp;&lt;div class="grid-box"&gt;3&lt;/div&gt;<br />
+          &lt;/div&gt;
+        </div>
+      </details>
+
+      <!-------------------------------------------------------------->
+      <!-- POSITIONING RECIPES -->
+      <!-------------------------------------------------------------->
+      <h2>📌 Positioning</h2>
+
+      <details>
+        <summary>9) Absolute Box inside a Relative Container</summary>
+        <pre><code>/* CSS */
+.wrapper {
+  position: relative;
+  height: 200px;
+  background: #eef0ff;
+}
+
+.absolute-box {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #c7e0ff;
+  padding: 0.5rem;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;div class="wrapper"&gt;<br />
+          &nbsp;&nbsp;&lt;div class="absolute-box"&gt;ABS&lt;/div&gt;<br />
+          &lt;/div&gt;
+        </div>
+      </details>
+
+      <!-------------------------------------------------------------->
+      <!-- COLOR RECIPES -->
+      <!-------------------------------------------------------------->
+      <h2>🎨 Color</h2>
+
+      <details>
+        <summary>10) Background + Text Color Box</summary>
+        <pre><code>/* CSS */
+.color-box {
+  background: #333;
+  color: white;
+  padding: 1rem;
+  border-radius: 6px;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;div class="color-box"&gt;Dark mode box&lt;/div&gt;
+        </div>
+      </details>
+
+      <!-------------------------------------------------------------->
+      <!-- BORDERS RECIPES -->
+      <!-------------------------------------------------------------->
+      <h2>⬛ Borders</h2>
+
+      <details>
+        <summary>11) Simple Rounded Box</summary>
+        <pre><code>/* CSS */
+.round {
+  padding: 1rem;
+  border: 2px solid #999;
+  border-radius: 12px;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;div class="round"&gt;Rounded&lt;/div&gt;
+        </div>
+      </details>
+
+      <details>
+        <summary>12) Dotted Border</summary>
+        <pre><code>/* CSS */
+.dotted {
+  border: 3px dotted #ff7777;
+  padding: 1rem;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;div class="dotted"&gt;Dotted&lt;/div&gt;
+        </div>
+      </details>
+
+      <!-------------------------------------------------------------->
+      <!-- LISTS RECIPES -->
+      <!-------------------------------------------------------------->
+      <h2>📋 Lists</h2>
+
+      <details>
+        <summary>13) Remove Bullets</summary>
+        <pre><code>/* CSS */
+.no-bullets {
+  list-style-type: none;
+  padding-left: 0;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;ul class="no-bullets"&gt;<br />
+          &nbsp;&nbsp;&lt;li&gt;One&lt;/li&gt;<br />
+          &nbsp;&nbsp;&lt;li&gt;Two&lt;/li&gt;<br />
+          &lt;/ul&gt;
+        </div>
+      </details>
+
+      <details>
+        <summary>14) Custom Bullet Style</summary>
+        <pre><code>/* CSS */
+.square-list {
+  list-style-type: square;
+  padding-left: 1.2rem;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;ul class="square-list"&gt;<br />
+          &nbsp;&nbsp;&lt;li&gt;Alpha&lt;/li&gt;<br />
+          &nbsp;&nbsp;&lt;li&gt;Beta&lt;/li&gt;<br />
+          &lt;/ul&gt;
+        </div>
+      </details>
+
+      <!-------------------------------------------------------------->
+      <!-- LINKS RECIPES -->
+      <!-------------------------------------------------------------->
+      <h2>🔗 Links</h2>
+
+      <details>
+        <summary>15) Remove Underline + Hover Underline</summary>
+        <pre><code>/* CSS */
+a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+a:hover {
+  text-decoration: underline;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;a href="#"&gt;Hover me&lt;/a&gt;
+        </div>
+      </details>
+
+      <details>
+        <summary>16) Button-Style Link</summary>
+        <pre><code>/* CSS */
+.btn-link {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  background: #4c6fff;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  background: #2c48ce;
+}</code></pre>
+
+        <div class="testbox">
+          <strong>HTML Test:</strong><br />
+          &lt;a href="#" class="btn-link"&gt;Click&lt;/a&gt;
+        </div>
+      </details>
+    </main>
+  </body>
+</html>

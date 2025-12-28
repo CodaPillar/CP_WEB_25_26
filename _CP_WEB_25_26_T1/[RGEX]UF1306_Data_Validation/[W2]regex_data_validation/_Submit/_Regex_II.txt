@@ -1,0 +1,205 @@
+Expressions regulars per validar:
+
+Número de telèfon 
+/^\d{6,8}$/
+
+Start by number:^ \d
+Limit the number to index btw {6,8} digits
+Exit safely: $
+
+Número de telèfon amb codi de país 
+/^\+\d{1,3}\d{9}$/
+
+Start with literal +     →  ^\+
+International prefix     →  \d{1,3}
+Phone number (9 digits)  →  \d{9}
+Safe ending              →  $
+
+
+Byte /^[01]{8}$/
+Numerical combination of the set [01]repeated {8} 8 times 
+
+Etiqueta HTML d'obertura 
+/^<[A-Za-z][A-Za-z0-9]*>$/
+
+Literal < →  ^<
+At least 1 letter →  [A-Za-z]
+Optional letters/digits → [A-Za-z0-9]*
+Literal >   →  >
+Safe ending →  $
+
+Etiqueta HTML de tancament 
+/^</[A-Za-z][A-Za-z0-9]*>$/
+
+Literal </              →  ^</
+At least 1 letter       →  [A-Za-z]
+Optional letters/digits →  [A-Za-z0-9]*
+Literal >               →  >
+Safe ending             →  $
+
+
+Data 1: Allowing date 00
+
+/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/ 
+Day 00–29 or 30–31   → ([0-2][0-9]|3[0-1])
+Separator             → (\/|-)
+Month                 → (0[1-9]|1[0-2])
+Repeat separator      → \2
+Year (4 digits)       → (\d{4})
+Full string anchors   → ^  $
+
+Data 2: Restricting 00
+
+/^(0[1-9]|[12][0-9]|3[01])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/ 
+Day 01–09             → 0[1-9]
+Day 10–29             → [12][0-9]
+Day 30–31             → 3[01]
+Separator             → (\/|-)
+Month 01–12           → (0[1-9]|1[0-2])
+Repeat same separator → \2
+Year (4 digits)       → (\d{4})
+Safe ending          → ^  $
+
+
+Hora V1: 
+/^(?:[01]?\d|2[0-3])(?::[0-5]\d){1,2}$/
+
+Hora V2 : /^(?:[01]?\d|2[0-3]):[0-5]\d$/
+
+Hours 0–9 or 00–09     → [01]?\d
+Hours 10–19            → [01]\d
+Hours 20–23            → 2[0-3]
+Literal colon          → :
+Minutes 00–59          → [0-5]\d
+Anchors                → ^  $
+
+
+([0-9])      → capturing group 1
+(?:[0-9])    → non-capturing group (no number)
+
+Data i hora 
+/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})\s(?:[01]?\d|2[0-3]):[0-5]\d$/
+
+Day 00–29 or 30–31      → ([0-2][0-9]|3[0-1])
+Separator                → (\/|-)
+Month 01–12              → (0[1-9]|1[0-2])
+Repeat same separator    → \2
+Year 4 digits            → (\d{4})
+Literal space            → \s
+Hours 0–9 or 00–09       → [01]?\d
+Hours 10–23              → 2[0-3]
+Literal colon            → :
+Minutes 00–59            → [0-5]\d
+Safe anchors             → ^  $
+
+
+Correu electrònic 
+/^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/
+Username characters      → [\w.-]+     (letters, digits, _, ., - ; one or more)
+Literal @                → @
+Domain name              → [\w.-]+     (same allowed set, one or more)
+Literal dot              → \.
+Domain extension         → [A-Za-z]{2,}  (minimum two letters)
+Safe anchors             → ^  $
+
+
+URL (http, https o ftp) 
+/^(https?|ftp):\/\/[\w.-]+(?:\.[\w.-]+)+(?:\/\S*)?$/
+Protocol (http / https / ftp)   →  (https?|ftp)
+Literal ://                     →  :\/\/
+Domain first block              →  [\w.-]+
+Additional domain blocks        →  (?:\.[\w.-]+)+   (one or more)
+Optional path                   →  (?:\/\S*)?       (optional slash + non-spaces)
+Safe anchors                    →  ^  $
+
+
+ISBN (cercar informació del format) i explicar quin és. 
+An ISBN is a special number used to identify books.Every book edition has its own ISBN.It always has 13 digits (ISBN-13).
+
+/^97[89]-\d{1,5}-\d{1,7}-\d{1,7}-\d$/
+
+Prefix 978 or 979           →  97[89]
+Literal hyphen              →  -
+Registration group          →  \d{1,5}
+Hyphen                      →  -
+Registrant element          →  \d{1,7}
+Hyphen                      →  -
+Publication element         →  \d{1,7}
+Hyphen                      →  -
+Check digit (one digit)     →  \d
+Safe anchors                →  ^  $
+
+
+Color amb format RGB -> RGB(255,255,255) 
+
+/^RGB\((\d{1,3}),(\d{1,3}),(\d{1,3})\)$/
+
+Literal RGB(              →  ^RGB\(
+Red value 0–999           →  (\d{1,3})
+Literal comma             →  ,
+Green value 0–999         →  (\d{1,3})
+Literal comma             →  ,
+Blue value 0–999          →  (\d{1,3})
+Literal closing )         →  \)
+Safe ending               →  $
+
+
+Paraula que comenci per un nombre parell (excepte el zero), acabi per un nombre senar i contingui el 0. 
+
+/^[2468]\w*0\w*[13579]$/
+Start with an even digit (2,4,6,8)   →  ^[2468]
+Any word characters (optional)       →  \w*
+Must contain a 0 somewhere           →  0
+Any word characters (optional)       →  \w*
+End with an odd digit (1,3,5,7,9)     →  [13579]$
+
+
+IP 
+/^(\d{1,3}\.){3}\d{1,3}$/
+
+Block of 1–3 digits + dot          →  (\d{1,3}\.)   repeat 3 times
+Last block of 1–3 digits           →  \d{1,3}
+Anchors                             →  ^  $
+
+
+IBAN 
+
+// without spaces :
+
+/^ES\d{22}$/ 
+
+Literal ES                 →  ^ES
+Control digits (2 digits)  →  \d{2}
+Rest of IBAN (20 digits)   →  \d{20}
+Total digits = 22          →  \d{22}
+Safe ending                →  $
+
+// Organized in blocks of 4 longhand
+
+^ES\d{2}\s\d{4}\s\d{4}\s\d{4}\s\d{4}\s\d{4}$
+
+Literal ES                  →  ^ES
+Control digits (2 digits)   →  \d{2}
+Space + 4 digits            →  \s\d{4}   (repeated 5 times explicitly)
+Safe ending                 →  $
+
+// Compact form 
+
+^ES\d{2}(?:\s\d{4}){5}$
+
+Literal ES                  →  ^ES
+Control digits               →  \d{2}
+Non-capturing group          →  (?:\s\d{4})
+Repeat group 5 times         →  {5}
+Safe ending                  →  $
+
+// (?:\s\d{4}){5} means: take the block \s\d{4} as one group, don’t capture it, and repeat it five times.
+
+
+Contrasenya amb longitud superior o igual a 8 caràcters amb almenys una majúscula i una minúscula. 
+/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+
+At least one lowercase letter   →  (?=.*[a-z])
+At least one uppercase letter   →  (?=.*[A-Z])
+Minimum length 8 characters     →  .{8,}
+Safe anchors                    →  ^  $

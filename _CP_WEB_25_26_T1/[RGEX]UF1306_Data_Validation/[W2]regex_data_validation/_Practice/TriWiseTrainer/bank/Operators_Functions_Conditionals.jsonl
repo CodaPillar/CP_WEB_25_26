@@ -1,0 +1,39 @@
+{"id":"JS-01","type":"tri","tier":1,"category":"Operators","question":"The logical OR operator (`||`) returns `true` when…","options":["both conditions are true","one of the conditions is true","no condition is true","only both are false"],"answer":"one of the conditions is true","hint":"Think of `||` as 'at least one'.","explain":"`true || false` → true, because only one needs to be true."}
+
+{"id":"JS-02","type":"short","tier":1,"category":"Operators","question":"If `b=0`, what is the value of `c` after executing `c=++b;`?","answer":"1","hint":"Prefix increment adds first, then returns the new value.","explain":"`b` becomes 1, and `c` receives 1."}
+
+{"id":"JS-03","type":"short","tier":1,"category":"Operators","question":"If `b=1`, what is the value of `c` after `c=b++;`?","answer":"1","hint":"Post-increment returns the old value first.","explain":"`c` gets the old `b` (1), then `b` becomes 2."}
+
+{"id":"JS-04","type":"tri","tier":1,"category":"Operators","question":"In JavaScript, what does `===` mean?","options":["Strict equality (value and type)","Loose equality (only value)","Assignment","Inequality"],"answer":"Strict equality (value and type)","hint":"Triple equals is the safest equality operator.","explain":"`===` checks both the value and its type."}
+
+{"id":"JS-05","type":"tri","tier":1,"category":"Operators","question":"What is the name of the operator `??`?","options":["Null fusion","Nullish coalescing","Ternary","Optional chaining"],"answer":"Nullish coalescing","hint":"Used to provide a default only when the left side is `null` or `undefined`.","explain":"Example: `let x = user.name ?? 'Anonymous';`."}
+
+{"id":"JS-06","type":"tri","tier":1,"category":"Operators","question":"Which operator performs a quick conditional choice in one line?","options":["`?:`","`=>`","`||`","`&&`"],"answer":"`?:`","hint":"It’s called the 'ternary operator'.","explain":"Syntax: `condition ? valueIfTrue : valueIfFalse`."}
+
+{"id":"JS-07","type":"tri","tier":1,"category":"Functions","question":"The values written inside the parentheses of a function definition are…","options":["local variables","parameters","arguments","static variables"],"answer":"parameters","hint":"They act as local placeholders for values received.","explain":"Function parameters exist only inside the function."}
+
+{"id":"JS-08","type":"tri","tier":1,"category":"Functions","question":"Which event detects a key press on the keyboard?","options":["keyup","keydown","keypress","onkey"],"answer":"keydown","hint":"It triggers when the key is physically pressed down.","explain":"`keydown` fires earlier than `keyup`."}
+
+{"id":"JS-09","type":"tri","tier":1,"category":"Functions","question":"To read the value of an `<input>` element, we use…","options":[".value","innerHTML","getText()","content"],"answer":".value","hint":"Inputs don’t store text between tags but in the `value` property.","explain":"`document.querySelector('input').value`."}
+
+{"id":"JS-10","type":"tri","tier":1,"category":"Functions","question":"To place the cursor inside an `<input>` field we use…","options":["focus()","setCursor()","activate()","select()"],"answer":"focus()","hint":"You usually do it after clearing the input.","explain":"`input.focus();` brings the cursor inside the element."}
+
+{"id":"JS-11","type":"tri","tier":1,"category":"Functions","question":"What is the use of `toFixed()`?","options":["Round and keep a specific number of decimals","Convert to integer","Remove decimals entirely","Format date values"],"answer":"Round and keep a specific number of decimals","hint":"Often used for money values.","explain":"`num.toFixed(2)` returns a string with two decimals."}
+
+{"id":"JS-12","type":"tri","tier":1,"category":"Functions","question":"By default, events in JavaScript point…","options":["always to other events","always to functions","to other events or functions","nowhere until linked"],"answer":"always to functions","hint":"An event must call a function when triggered.","explain":"`onclick=\"myFunction()\"` is a classic example."}
+
+{"id":"JS-13","type":"tri","tier":1,"category":"Conditionals","question":"Each option in a `switch` statement begins with…","options":["case","if","option","when"],"answer":"case","hint":"Remember the pattern: `case 'value':`.","explain":"Each branch in a switch is declared with the keyword `case`."}
+
+{"id":"JS-14","type":"tri","tier":1,"category":"Conditionals","question":"To prevent more than one option from executing in a `switch`, we use…","options":["break","continue","stop","end"],"answer":"break","hint":"It exits the switch after a match.","explain":"Without `break`, execution 'falls through' to the next case."}
+
+{"id":"JS-15","type":"tri","tier":1,"category":"Conditionals","question":"The correct syntax for an `if` statement in JavaScript is…","options":["if (condition) { }","if condition { }","if (condition):","if condition:"],"answer":"if (condition) { }","hint":"Curly braces are required for the block.","explain":"Parentheses hold the test, braces hold the code."}
+
+{"id":"JS-16","type":"tri","tier":1,"category":"Conditionals","question":"When comparing two values with `===`, the condition is true only when…","options":["Both value and type match","Only value matches","Only type matches","Either one matches"],"answer":"Both value and type match","hint":"This avoids confusion between '5' and 5.","explain":"Strict equality compares without automatic conversion."}
+
+{"id":"JS-17","type":"tri","tier":1,"category":"Conditionals","question":"To add an alternative branch when the condition fails, we use…","options":["else","else if","otherwise","default"],"answer":"else","hint":"It’s the complement of `if`.","explain":"`if(condition){...} else {...}`."}
+
+{"id":"JS-18","type":"short","tier":2,"category":"Conditionals","question":"Write a simple `if` statement that logs `'Adult'` when `age >= 18`.","answer":"if (age >= 18) { console.log('Adult'); }","hint":"Use comparison and curly braces.","explain":"Remember both parentheses and braces."}
+
+{"id":"JS-19","type":"short","tier":2,"category":"Functions","question":"Write a function `add(a,b)` that returns the sum of its two parameters.","answer":"function add(a,b){ return a+b; }","hint":"Use the `return` keyword.","explain":"Functions compute and return a value."}
+
+{"id":"JS-20","type":"tri","tier":2,"category":"Operators","question":"The XOR operator is true when…","options":["both conditions are true","exactly one condition is true","none are true","both are false"],"answer":"exactly one condition is true","hint":"Think of XOR as 'exclusive or'.","explain":"Only one side being true gives `true`."}

@@ -1,0 +1,8 @@
+{
+  "banks": [
+    { "path": "banks/arrays_showcase.jsonl",   "label": "Arrays (EN)" },
+    { "path": "banks/loops_showcase.jsonl",    "label": "Loops (EN)" },
+    { "path": "banks/events_dom_showcase.jsonl","label": "Events & DOM (EN)" },
+    { "path": "banks/project_logic_showcase.jsonl", "label": "Project Logic (EN)" }
+  ]
+}

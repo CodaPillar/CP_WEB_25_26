@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS && REGEX </title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Hello Regex 🐞🐛🪲</h1>
+
+    <p>  we want to validate fields and butons.</p>
+
+    <button onclick="alert('Botó clicat!🐛')">Click me</button>
+  </body>
+  <script>
+   const regex =  /^[01]{8}$/ ;
+   let cadena = prompt("Intro the byte vslue");
+   console.log(regex.test(cadena));
+   </script>
+
+    <script>
+   const regex = /^\w{6}$/;
+   let cadena = prompt("Intro the byte pass");
+   console.log(regex.test(cadena));
+   </script>
+
+ <script>
+   const regex = /^\w{6}$/;
+   let cadena = prompt("Intro the pass");
+  
+    console.log(cadena.match(regex)); 
+   </script>
+
+ const regex = /^\w{6}$/;
+   let cadena = prompt("Intro the byte pass");
+   console.log(cadena.match(regex)); 
+</html>
+
+<body>
+     <script>
+   const regex = /^\w{6}$/;
+   let cadena = prompt("Intro the pass");
+   let val = cadena.matchAll(regex);
+   console.log(val);
+   for (let i = 0, i < val.length; i++)
+   console.log(val[i]); 
+   </script>
+   <body>
+     <script>
+   const regex = /^\w{6}$/;
+   let cadena = prompt("Intro the pass");
+   let val = cadena.matchAll(regex);
+   console.log(val);
+   for (let i = 0, i < val.length; i++)
+   console.log(val[i]); 
+   </script>
+
+   <body>
+     <script>
+   const regex = /^\w{6}$/;
+   let cadena = prompt("Intro the pass");
+   let val = cadena.matchAll(regex);
+   console.log(val);
+   for (let i = 0, i < val.length; i++)
+   console.log(val[i]); 
+   </script>
+  </body>
+
+  
+  /^[A-Z]/w+$/
+  </body>
+  </body>
+
+  <script> 
+  const regex = /[A-Z]\w+/g;
+   let cadena = prompt("Intro una oracio ");
+   console.log(cadena.match(regex)); 
+  </script>
+
+  <script> 
+  const regex = /\d+/g;
+   let cadena = prompt("Intro una oracio amb numeros ");
+   console.log(cadena.match(regex)); 
+  </script>
+
+const regex = /\d+/g;
+   let cadena = prompt("Intro una oracio amb numeros ");
+   let box = cadena.match(regex);
+   for (let i=0 ; i<box.length; i++){
+   console.log("Element " +i);
+   console.log(box[i]); 
+}
+
+
+
+^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}g;
+
+
+const regex = /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}/g;
+   let cadena = prompt("Intro tu info ");
+   let box = cadena.match(regex);
+   for (let i=0 ; i<box.length; i++){
+   console.log("Element " +i);
+   console.log(box[i]); 
+}
+
+const regex = /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}/g;
+   let cadena = prompt("Intro tu info ");
+   let box = cadena.match(regex);
+   for (let i=0 ; i<box.length; i++){
+   console.log("Element " +i);
+   console.log(box[i]); 
+}
+/\d+/g;
+
+const regex = /[A-Z]+/g;
+   let cadena = prompt("Intro tu info ");
+   let box = cadena.match(regex);
+   for (let i=0 ; i<box.length; i++){
+   console.log("Element " +i);
+   console.log(box[i]); 
+}
+  <script>
+
+   const regex = /[A-Z]+/; 
+   let cadena = prompt("Intro your pass value");
+   console.log(regex.test(cadena));
+   </script>
+
+const regex = /[A-Z]+/; 
+   let cadena = prompt("Intro your pass value");
+   console.log(regex.test(cadena));

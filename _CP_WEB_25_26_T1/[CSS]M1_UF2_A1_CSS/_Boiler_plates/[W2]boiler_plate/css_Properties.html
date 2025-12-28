@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS Week 2 – Core Property Definitions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* ===== Base reset ===== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: #f4f4f7;
+        color: #222;
+        line-height: 1.6;
+        padding: 2rem 1rem;
+      }
+
+      /* ===== Layout ===== */
+      .page {
+        max-width: 980px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+        padding: 2rem 2.5rem 2.5rem;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.4rem;
+      }
+
+      header p {
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 1rem;
+      }
+
+      .hint {
+        font-size: 0.85rem;
+        color: #666;
+        background: #f9fafc;
+        border-left: 4px solid #9aa7ff;
+        padding: 0.7rem 0.8rem;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+      }
+
+      /* ===== Tabs container ===== */
+      .tabs {
+        margin-top: 1rem;
+      }
+
+      .tabs input[type="radio"] {
+        display: none;
+      }
+
+      .tabs-labels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 1rem;
+      }
+
+      .tabs label {
+        cursor: pointer;
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        background: #f0f0f5;
+        color: #555;
+        transition: background 0.15s ease, color 0.15s ease,
+          transform 0.08s ease;
+        user-select: none;
+      }
+
+      .tabs label:hover {
+        background: #e0e1ff;
+        color: #222;
+        transform: translateY(-1px);
+      }
+
+      /* Checked tab label style */
+      .tabs input[type="radio"]:checked + label {
+        background: #4c6fff;
+        color: #ffffff;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(76, 111, 255, 0.4);
+      }
+
+      /* Tab panels */
+      .tab-panel {
+        display: none;
+        padding-top: 0.5rem;
+        animation: fadeIn 0.18s ease-out;
+      }
+
+      /* Show panel after its label */
+      .tabs input[type="radio"]:checked + label + .tab-panel {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== Content styling ===== */
+      .tab-panel h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .tab-panel p.intro {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 0.8rem;
+      }
+
+      dl {
+        margin-top: 0.4rem;
+      }
+
+      dt {
+        font-weight: 600;
+        margin-top: 0.5rem;
+        font-size: 0.95rem;
+        color: #333;
+      }
+
+      dd {
+        margin-left: 0.8rem;
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      .group-note {
+        font-size: 0.85rem;
+        color: #777;
+        margin-top: 0.3rem;
+        margin-bottom: 0.6rem;
+      }
+
+      /* Small highlight badges for categories */
+      .badge {
+        display: inline-block;
+        font-size: 0.7rem;
+        padding: 0.1rem 0.45rem;
+        border-radius: 999px;
+        margin-left: 0.4rem;
+        color: #fff;
+        background: #9aa7ff;
+      }
+
+      .badge-box {
+        background: #f59e0b;
+      }
+      .badge-type {
+        background: #10b981;
+      }
+      .badge-layout {
+        background: #3b82f6;
+      }
+      .badge-pos {
+        background: #a855f7;
+      }
+      .badge-color {
+        background: #ef4444;
+      }
+      .badge-border {
+        background: #ec4899;
+      }
+      .badge-list {
+        background: #6366f1;
+      }
+      .badge-link {
+        background: #0ea5e9;
+      }
+
+      /* Make long lines nicer on mobile */
+      @media (max-width: 640px) {
+        .page {
+          padding: 1.5rem 1.2rem 2rem;
+        }
+        header h1 {
+          font-size: 1.4rem;
+        }
+        .tabs label {
+          font-size: 0.85rem;
+          padding: 0.45rem 0.7rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header>
+        <h1>CSS Week 2 – Core Property Definitions</h1>
+        <p>
+          Quick reference for the main CSS properties you will see in class.
+        </p>
+        <div class="hint">
+          Use the tabs below to move between groups: Box Model, Typography,
+          Layout, Positioning, Color, Borders, Lists, and Links.
+        </div>
+      </header>
+
+      <section class="tabs">
+        <div class="tabs-labels">
+          <!-- The labels are paired with the radio inputs below -->
+        </div>
+
+        <!-- BOX MODEL -->
+        <input type="radio" name="tabgroup" id="tab-boxmodel" checked />
+        <label for="tab-boxmodel">Box Model</label>
+        <div class="tab-panel">
+          <h2>Box Model <span class="badge badge-box">layout</span></h2>
+          <p class="intro">
+            Every element is a box with content, padding, border, and margin.
+            These properties control spacing and size.
+          </p>
+
+          <dl>
+            <dt>margin</dt>
+            <dd>
+              Space <strong>outside</strong> the element’s border, separating
+              the element from others.
+            </dd>
+
+            <dt>padding</dt>
+            <dd>
+              Space <strong>inside</strong> the element’s border, pushing the
+              content away from the edges.
+            </dd>
+
+            <dt>border</dt>
+            <dd>
+              The line around the element. Usually defined by
+              <code>border-width</code>, <code>border-style</code>, and
+              <code>border-color</code> together.
+            </dd>
+
+            <dt>width</dt>
+            <dd>
+              The horizontal size of the content area (not including margin,
+              often not including padding/border unless box-sizing is changed).
+            </dd>
+
+            <dt>height</dt>
+            <dd>
+              The vertical size of the content area (same idea as width, for
+              height).
+            </dd>
+          </dl>
+
+          <p class="group-note">
+            Remember: the order for margins and padding in shorthand is always
+            clockwise:
+            <strong>top → right → bottom → left</strong>.
+          </p>
+        </div>
+
+        <!-- TYPOGRAPHY -->
+        <input type="radio" name="tabgroup" id="tab-typography" />
+        <label for="tab-typography">Typography</label>
+        <div class="tab-panel">
+          <h2>Typography <span class="badge badge-type">text</span></h2>
+          <p class="intro">
+            These properties control how text looks: font, size, weight,
+            spacing, and alignment.
+          </p>
+
+          <dl>
+            <dt>font-family</dt>
+            <dd>
+              The typeface used for the text (for example, Arial, Georgia,
+              etc.).
+            </dd>
+
+            <dt>font-size</dt>
+            <dd>
+              How big the characters appear, usually in <code>px</code>,
+              <code>rem</code>, or <code>em</code>.
+            </dd>
+
+            <dt>font-weight</dt>
+            <dd>
+              How bold the text is (for example <code>normal</code>,
+              <code>bold</code>, or numeric values like <code>400</code>,
+              <code>700</code>).
+            </dd>
+
+            <dt>font-style</dt>
+            <dd>
+              Whether text is normal or italic (for example <code>normal</code>,
+              <code>italic</code>).
+            </dd>
+
+            <dt>text-align</dt>
+            <dd>
+              Horizontal alignment of text inside its container
+              (<code>left</code>, <code>center</code>, <code>right</code>,
+              <code>justify</code>).
+            </dd>
+
+            <dt>text-decoration</dt>
+            <dd>
+              Additional line on the text (for example <code>underline</code>,
+              <code>line-through</code>, or <code>none</code>).
+            </dd>
+
+            <dt>text-transform</dt>
+            <dd>
+              Changes the case of letters (<code>uppercase</code>,
+              <code>lowercase</code>, <code>capitalize</code>).
+            </dd>
+
+            <dt>line-height</dt>
+            <dd>
+              Vertical distance between lines of text; controls how “spaced out”
+              lines feel.
+            </dd>
+
+            <dt>letter-spacing</dt>
+            <dd>Extra space between individual letters.</dd>
+
+            <dt>word-spacing</dt>
+            <dd>Extra space between words.</dd>
+          </dl>
+        </div>
+
+        <!-- DISPLAY & LAYOUT -->
+        <input type="radio" name="tabgroup" id="tab-layout" />
+        <label for="tab-layout">Display &amp; Layout</label>
+        <div class="tab-panel">
+          <h2>
+            Display &amp; Layout
+            <span class="badge badge-layout">structure</span>
+          </h2>
+          <p class="intro">
+            These properties control how elements are laid out on the page and
+            how children are arranged.
+          </p>
+
+          <dl>
+            <dt>display</dt>
+            <dd>
+              Defines how an element behaves in the layout (<code>block</code>,
+              <code>inline</code>, <code>inline-block</code>, <code>flex</code>,
+              <code>grid</code>, etc.).
+            </dd>
+
+            <dt>flex-direction</dt>
+            <dd>
+              In a flex container, sets whether items flow in a row or column
+              (for example <code>row</code>, <code>column</code>).
+            </dd>
+
+            <dt>justify-content</dt>
+            <dd>
+              In flex or grid, controls horizontal distribution of items along
+              the main axis (<code>flex-start</code>, <code>center</code>,
+              <code>space-between</code>, etc.).
+            </dd>
+
+            <dt>align-items</dt>
+            <dd>
+              In flex or grid, controls vertical alignment of items along the
+              cross axis (<code>flex-start</code>, <code>center</code>,
+              <code>flex-end</code>, etc.).
+            </dd>
+
+            <dt>gap</dt>
+            <dd>
+              Space between items in a flex or grid container (like a built-in
+              margin between children).
+            </dd>
+
+            <dt>flex-wrap</dt>
+            <dd>
+              Controls whether flex items stay on one line or can wrap onto
+              multiple lines.
+            </dd>
+
+            <dt>grid-template-columns</dt>
+            <dd>Defines how many columns a grid has and how wide they are.</dd>
+
+            <dt>grid-template-rows</dt>
+            <dd>Defines how many rows a grid has and how tall they are.</dd>
+          </dl>
+        </div>
+
+        <!-- POSITIONING -->
+        <input type="radio" name="tabgroup" id="tab-positioning" />
+        <label for="tab-positioning">Positioning</label>
+        <div class="tab-panel">
+          <h2>Positioning <span class="badge badge-pos">stacking</span></h2>
+          <p class="intro">
+            These properties control how elements are positioned relative to
+            their normal place or the viewport.
+          </p>
+
+          <dl>
+            <dt>position</dt>
+            <dd>
+              Chooses the positioning mode: <code>static</code>,
+              <code>relative</code>, <code>absolute</code>, <code>fixed</code>,
+              or <code>sticky</code>.
+            </dd>
+
+            <dt>top, right, bottom, left</dt>
+            <dd>
+              Offsets that move an element when it uses a non-static positioning
+              mode. They define how far the element is from the respective edge.
+            </dd>
+
+            <dt>z-index</dt>
+            <dd>
+              Controls which elements appear “on top” when they overlap. A
+              higher <code>z-index</code> means in front.
+            </dd>
+          </dl>
+        </div>
+
+        <!-- COLOR -->
+        <input type="radio" name="tabgroup" id="tab-color" />
+        <label for="tab-color">Color</label>
+        <div class="tab-panel">
+          <h2>Color <span class="badge badge-color">visual</span></h2>
+          <p class="intro">
+            These properties define the color of the text and background, and
+            how transparent elements appear.
+          </p>
+
+          <dl>
+            <dt>color</dt>
+            <dd>
+              Text color of the element (can be defined with names, hex, rgb,
+              hsl, etc.).
+            </dd>
+
+            <dt>background-color</dt>
+            <dd>Background fill color of the element’s box.</dd>
+
+            <dt>opacity</dt>
+            <dd>
+              Transparency of the whole element.
+              <code>1</code> is fully visible, <code>0</code> is completely
+              transparent.
+            </dd>
+          </dl>
+        </div>
+
+        <!-- BORDERS -->
+        <input type="radio" name="tabgroup" id="tab-borders" />
+        <label for="tab-borders">Borders</label>
+        <div class="tab-panel">
+          <h2>Borders <span class="badge badge-border">edges</span></h2>
+          <p class="intro">
+            Borders draw lines around elements and can be customized in
+            thickness, style, color, and shape.
+          </p>
+
+          <dl>
+            <dt>border-width</dt>
+            <dd>
+              Thickness of the border line (for example <code>1px</code>,
+              <code>2px</code>, etc.).
+            </dd>
+
+            <dt>border-style</dt>
+            <dd>
+              Visual style of the border (
+              <code>solid</code>, <code>dashed</code>, <code>dotted</code>,
+              <code>double</code>, etc.).
+            </dd>
+
+            <dt>border-color</dt>
+            <dd>Color of the border line.</dd>
+
+            <dt>border-radius</dt>
+            <dd>
+              How rounded the corners of the box are. Higher values create more
+              rounded corners.
+            </dd>
+
+            <dt>outline</dt>
+            <dd>
+              A line around the element, drawn outside the border. It does not
+              affect layout and is often used for focus styles.
+            </dd>
+          </dl>
+        </div>
+
+        <!-- LISTS -->
+        <input type="radio" name="tabgroup" id="tab-lists" />
+        <label for="tab-lists">Lists</label>
+        <div class="tab-panel">
+          <h2>Lists <span class="badge badge-list">bullets</span></h2>
+          <p class="intro">
+            List properties control the bullet or numbering style and the
+            indentation.
+          </p>
+
+          <dl>
+            <dt>list-style-type</dt>
+            <dd>
+              Type of bullet or numbering for list items (for example
+              <code>disc</code>, <code>circle</code>, <code>decimal</code>,
+              <code>none</code>).
+            </dd>
+
+            <dt>padding-left</dt>
+            <dd>
+              Horizontal indentation inside the list, often used to control how
+              far bullets and text sit from the edge.
+            </dd>
+          </dl>
+        </div>
+
+        <!-- LINKS -->
+        <input type="radio" name="tabgroup" id="tab-links" />
+        <label for="tab-links">Links</label>
+        <div class="tab-panel">
+          <h2>Links <span class="badge badge-link">anchors</span></h2>
+          <p class="intro">
+            These properties are commonly used to style anchors (<code
+              >&lt;a&gt;</code
+            >
+            elements).
+          </p>
+
+          <dl>
+            <dt>color</dt>
+            <dd>
+              Text color of the link in its normal state (and also in
+              visited/hover states if separately defined).
+            </dd>
+
+            <dt>text-decoration</dt>
+            <dd>
+              Controls the underline and other line styles on links (for example
+              <code>underline</code> or <code>none</code>).
+            </dd>
+          </dl>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+
+https://regex101.com
+Regex Warm‑Up Practice Sheet
+
+Warm‑up 1: Match a single digit
+
+Write a regex that matches one digit (0–9). Solution space:
+____________________________
+
+Warm‑up 2: Match 3 digits in a row
+
+Write a regex that matches exactly three digits. Solution space:
+____________________________
+
+Warm‑up 3: Match a word of letters only
+
+Write a regex that matches a sequence of letters (A–Z, a–z). Solution
+space: ____________________________
+
+Warm‑up 4: Match an email (basic)
+
+Write a regex that matches something like name@mail.com. Solution space:
+____________________________
+
+Warm‑up 5: Match a date in dd/mm/yyyy (simple)
+
+Write a regex to match a date in day/month/year. Solution space:
+____________________________
+
+Warm‑up 6: Match a phone number of 9 digits
+
+Write a regex for exactly 9 numbers. Solution space:
+____________________________
+
+Warm‑up 7: Match lowercase letters only
+
+Write a regex that matches only lowercase words. Solution space:
+____________________________
+
+Warm‑up 8: Match uppercase letters only
+
+Write a regex that matches only uppercase words. Solution space:
+____________________________
+
+Warm‑up 9: Match a literal dot
+
+Write a regex that matches a literal ‘.’ character. Solution space:
+____________________________
+
+Warm‑up 10: Match any character except spaces
+
+Write a regex that matches any non‑space character. Solution space:
+____________________________

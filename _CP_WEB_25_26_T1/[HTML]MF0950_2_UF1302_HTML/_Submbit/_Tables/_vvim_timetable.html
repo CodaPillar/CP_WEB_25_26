@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Horario IFCD0110 (rowspan intento)</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+
+  <!-- intento Vincent-Mamako Productions -->
+  <!-- espero que los rowspans estén bien, profe… -->
+
+  <table style="border-collapse: collapse; margin: 20px auto; width: 900px; font-size: 12px; text-align:center;">
+
+    <!-- título -->
+    <tr>
+      <th colspan="6" style="border:1px solid #999; padding:8px; background:#eee; font-size:15px;">
+        Horario IFCD0110
+      </th>
+    </tr>
+
+    <!-- cabecera días -->
+    <tr>
+      <th style="border:1px solid #999; padding:5px; background:#f9f9f9; width:90px;"></th>
+      <th style="border:1px solid #999; padding:5px; background:#f9f9f9;">Lunes</th>
+      <th style="border:1px solid #999; padding:5px; background:#f9f9f9;">Martes</th>
+      <th style="border:1px solid #999; padding:5px; background:#f9f9f9;">Miércoles</th>
+      <th style="border:1px solid #999; padding:5px; background:#f9f9f9;">Jueves</th>
+      <th style="border:1px solid #999; padding:5px; background:#f9f9f9;">Viernes</th>
+    </tr>
+
+    <!-- === 14:30 - 15:30 === -->
+    <tr>
+      <td style="border:1px solid #999; padding:4px; background:#f2f2f2;">
+        14:30<br>15:30
+      </td>
+
+      <!-- LUNES M3 (continues 14:30–16:30 → 2 hours) -->
+      <td rowspan="2" style="border:1px solid #999; padding:4px; background:#f8d966;">
+        M3 IFCD0110<br>SMX11
+      </td>
+
+      <!-- MARTES M3 (same, 2h) -->
+      <td rowspan="2" style="border:1px solid #999; padding:4px; background:#f8d966;">
+        M3 IFCD0110<br>SMX11
+      </td>
+
+      <!-- MIÉRCOLES: M2 then M1 (so NO rowspan here) -->
+      <td style="border:1px solid #999; padding:4px; background:#c9e49b;">
+        M2 IFCD0110<br>SMX2
+      </td>
+
+      <!-- JUEVES: M1 (14:30–16:30 → 2h) -->
+      <td rowspan="2" style="border:1px solid #999; padding:4px; background:#9bc2e6;">
+        M1 IFCD0110<br>SMX7
+      </td>
+
+      <!-- VIERNES: M2 (14:30–16:30 → 2h) -->
+      <td rowspan="2" style="border:1px solid #999; padding:4px; background:#c9e49b;">
+        M2 IFCD0110<br>SMX2
+      </td>
+    </tr>
+
+    <!-- === 15:30 - 16:30 (rowspan handled above) === -->
+    <tr>
+      <td style="border:1px solid #999; padding:4px; background:#f2f2f2;">
+        15:30<br>16:30
+      </td>
+
+      <!-- MIÉRCOLES now M1 -->
+      <td style="border:1px solid #999; padding:4px; background:#9bc2e6;">
+        M1 IFCD0110<br>SMX1
+      </td>
+    </tr>
+
+    <!-- === 16:30 - 17:30 === -->
+    <tr>
+      <td style="border:1px solid #999; padding:4px; background:#f2f2f2;">
+        16:30<br>17:30
+      </td>
+
+      <!-- LUNES M2 (16:30–19:40? but here I'll rowspan 3 periods) -->
+      <td rowspan="3" style="border:1px solid #999; padding:4px; background:#c9e49b;">
+        M2 IFCD0110<br>SMX2
+      </td>
+
+      <!-- MARTES M3 only this hour (16:30–17:30 only) -->
+      <td style="border:1px solid #999; padding:4px; background:#f8d966;">
+        M3 IFCD0110<br>SMX11
+      </td>
+
+      <!-- MIÉRCOLES M1 (16:30–18:45 → 2h) -->
+      <td rowspan="2" style="border:1px solid #999; padding:4px; background:#9bc2e6;">
+        M1 IFCD0110<br>SMX1
+      </td>
+
+      <!-- JUEVES M1 continues? No, at 16:30 still M1; but later 17:30 changes to M2 -->
+      <td style="border:1px solid #999; padding:4px; background:#9bc2e6;">
+        M1 IFCD0110<br>SMX1
+      </td>
+
+      <!-- VIERNES M2 (16:30–20:35 → rowspan 3–4 periods depending) -->
+      <td rowspan="3" style="border:1px solid #999; padding:4px; background:#c9e49b;">
+        M2 IFCD0110<br>SMX2
+      </td>
+    </tr>
+
+    <!-- === RECREO === -->
+    <tr>
+      <td style="border:1px solid #999; padding:4px; background:#fdfce8;">
+        <!-- hora del recreo -->
+      </td>
+
+      <!-- MARTES recreo row -->
+      <td colspan="3" style="border:1px solid #999; padding:6px; background:#fff4c2; font-weight:bold;">
+        RECREO
+      </td>
+
+      <!-- JUEVES M2 after recreo (17:30–19:40 → 2 periods) -->
+      <td rowspan="2" style="border:1px solid #999; padding:4px; background:#c9e49b;">
+        M2 IFCD0110<br>SMX7
+      </td>
+    </tr>
+
+    <!-- === 17:30 - 18:45 === -->
+    <tr>
+      <td style="border:1px solid #999; padding:4px; background:#f2f2f2;">
+        17:30<br>18:45
+      </td>
+
+      <!-- MARTES M1 (17:30–19:40 → rowspan 2) -->
+      <td rowspan="2" style="border:1px solid #999; padding:4px; background:#9bc2e6;">
+        M1 IFCD0110<br>SMX1
+      </td>
+
+      <!-- MIÉRCOLES continues M1 from above rowspan -->
+
+      <!-- JUEVES already rowspanned above-->
+    </tr>
+
+    <!-- === 18:45 - 19:40 === -->
+    <tr>
+      <td style="border:1px solid #999; padding:4px; background:#f2f2f2;">
+        18:45<br>19:40
+      </td>
+
+      <!-- MARTES continues rowspan M1 -->
+
+      <!-- MIÉRCOLES nothing changes (class ends at 18:45?) -->
+      <td style="border:1px solid #999; padding:4px; background:#9bc2e6;">
+        M1 IFCD0110<br>SMX1
+      </td>
+
+      <!-- JUEVES still under rowspan M2 for SMX7 -->
+
+    </tr>
+
+    <!-- === 19:40 - 20:35 === -->
+    <tr>
+      <td style="border:1px solid #999; padding:4px; background:#f2f2f2;">
+        19:40<br>20:35
+      </td>
+
+      <!-- LUNES empty -->
+      <td style="border:1px solid #999; padding:4px;"></td>
+
+      <!-- MARTES M1 continues (last hour) -->
+      <td style="border:1px solid #999; padding:4px; background:#9bc2e6;">
+        M1 IFCD0110<br>SMX1
+      </td>
+
+      <!-- MIÉRCOLES M1 continues -->
+      <td style="border:1px solid #999; padding:4px; background:#9bc2e6;">
+        M1 IFCD0110<br>SMX1
+      </td>
+
+      <!-- JUEVES M2 (but ended at 19:40, this cell is standalone) -->
+      <td style="border:1px solid #999; padding:4px; background:#c9e49b;">
+        M2 IFCD0110<br>SMX7
+      </td>
+
+      <!-- VIERNES continues rowspan M2 -->
+    </tr>
+
+  </table>
+
+</body>
+</html>

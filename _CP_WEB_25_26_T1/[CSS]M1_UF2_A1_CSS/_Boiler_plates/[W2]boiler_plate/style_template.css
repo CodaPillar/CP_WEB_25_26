@@ -1,0 +1,125 @@
+/* ========== ELEMENT SELECTORS ========== */
+
+body {
+  font-family: ;
+  font-size: ;
+  color: ;
+  background-color: ;
+  line-height: ;
+  margin: ;
+  padding: ;
+}
+
+h1, h2, h3 {
+  font-size: ;
+  margin: ;
+  padding: ;
+  color: ;
+}
+
+p {
+  margin: ;
+  padding: ;
+  line-height: ;
+  color: ;
+}
+
+/* ========== BOX MODEL ========== */
+
+.box {
+  width: ;
+  height: ;
+  margin: ;
+  padding: ;
+  border: ;
+  border-radius: ;
+  background-color: ;
+}
+
+/* ========== DISPLAY & POSITIONING ========== */
+
+.container {
+  display: ;
+  gap: ;
+  justify-content: ;
+  align-items: ;
+  flex-direction: ;
+  flex-wrap: ;
+}
+
+.grid {
+  display: ;
+  grid-template-columns: ;
+  grid-template-rows: ;
+  gap: ;
+}
+
+.positioning {
+  position: ;
+  top: ;
+  right: ;
+  bottom: ;
+  left: ;
+  z-index: ;
+}
+
+/* ========== TEXT & TYPOGRAPHY ========== */
+
+.text {
+  font-size: ;
+  font-weight: ;
+  font-style: ;
+  text-align: ;
+  text-decoration: ;
+  text-transform: ;
+  letter-spacing: ;
+  word-spacing: ;
+}
+
+/* ========== COLORS ========== */
+
+.color {
+  color: ;
+  background-color: ;
+  opacity: ;
+}
+
+/* ========== SPACING UTILITIES ========== */
+
+.mt { margin-top: ; }
+.mb { margin-bottom: ; }
+.ml { margin-left: ; }
+.mr { margin-right: ; }
+.pt { padding-top: ; }
+.pb { padding-bottom: ; }
+.pl { padding-left: ; }
+.pr { padding-right: ; }
+
+/* ========== BORDER & OUTLINE ========== */
+
+.border {
+  border-width: ;
+  border-style: ;
+  border-color: ;
+  outline: ;
+}
+
+/* ========== LISTS ========== */
+
+ul, ol {
+  list-style-type: ;
+  padding-left: ;
+  margin: ;
+}
+
+/* ========== LINKS ========== */
+
+a {
+  color: ;
+  text-decoration: ;
+}
+
+a:hover {
+  color: ;
+  text-decoration: ;
+}

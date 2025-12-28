@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+</head>
+<body>
+    h1>HTML Lists Demo</h1>
+
+  <!-- ------------------------------------------------------ -->
+  <!-- 1. Unordered List <ul> with 4 items, each different     -->
+  <!-- ------------------------------------------------------ -->
+  <h2>1. Unordered List: 4 items, each with different bullet style</h2>
+
+  <ul>
+    <li style="list-style-type: disc;">Disc bullet</li>
+    <li style="list-style-type: circle;">Circle bullet</li>
+    <li style="list-style-type: square;">Square bullet</li>
+    <li style="list-style-type: none;">No bullet</li>
+  </ul>
+
+
+  <!-- ------------------------------------------------------ -->
+  <!-- 2. Ordered List <ol> with 4 canonical items             -->
+  <!-- ------------------------------------------------------ -->
+  <h2>2. Ordered List: Canonical numeric list</h2>
+
+  <ol>
+    <li>First item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+    <li>Fourth item</li>
+  </ol>
+
+
+  <!-- ------------------------------------------------------ -->
+  <!-- 3. Ordered List with letters                            -->
+  <!-- ------------------------------------------------------ -->
+  <h2>3. Ordered List: Alphabetical (a, b, c...)</h2>
+
+  <ol style="list-style-type: lower-alpha;">
+    <li>Alpha item</li>
+    <li>Beta item</li>
+    <li>Gamma item</li>
+    <li>Delta item</li>
+  </ol>
+
+
+  <!-- ------------------------------------------------------ -->
+  <!-- 4. Ordered List starting at 5                           -->
+  <!-- ------------------------------------------------------ -->
+  <h2>4. Ordered List: Starting at 5</h2>
+
+  <ol start="5">
+    <li>Fifth item</li>
+    <li>Sixth item</li>
+    <li>Seventh item</li>
+    <li>Eighth item</li>
+  </ol>
+
+
+  <!-- ------------------------------------------------------ -->
+  <!-- 5. Roman numerals + nested lists                        -->
+  <!-- ------------------------------------------------------ -->
+  <h2>5. Roman List + Nested Numeric and UL</h2>
+
+  <ol style="list-style-type: upper-roman;">
+    <li>
+      Roman I
+      <!-- Nested numeric list -->
+      <ol style="list-style-type: decimal;">
+        <li>Nested number 1</li>
+        <li>Nested number 2</li>
+      </ol>
+    </li>
+
+    <li>
+      Roman II
+      <!-- Nested unordered list -->
+      <ul style="list-style-type: disc;">
+        <li>Nested disc A</li>
+        <li>Nested disc B</li>
+      </ul>
+    </li>
+
+    <li>Roman III</li>
+    <li>Roman IV</li>
+    <li>Roman V</li>
+  </ol> 
+</body>
+</html>

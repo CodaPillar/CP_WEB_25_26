@@ -1,0 +1,188 @@
+Expressions regulares para validar:
+
+Número de teléfono  
+/^\d{6,8}$/
+
+Empieza por número: ^\d  
+Limita la cantidad entre {6,8} dígitos  
+Cierre seguro: $
+
+Número de teléfono con código de país  
+/^\+\d{1,3}\d{9}$/
+
+Empieza con el signo + literal →  ^\+  
+Prefijo internacional (1–3 dígitos) →  \d{1,3}  
+Número de teléfono (9 dígitos)      →  \d{9}  
+Cierre seguro                       →  $
+
+Byte /^[01]{8}$/  
+Combinación numérica del conjunto [01] repetida {8} veces  
+
+Etiqueta HTML de apertura  
+/^<[A-Za-z][A-Za-z0-9]*>$/
+
+Signo < literal → ^<  
+Al menos 1 letra → [A-Za-z]  
+Letras o números opcionales → [A-Za-z0-9]*  
+Signo > literal → >  
+Cierre seguro   → $
+
+Etiqueta HTML de cierre  
+/^</[A-Za-z][A-Za-z0-9]*>$/
+
+Signo </ literal            → ^</  
+Al menos 1 letra            → [A-Za-z]  
+Letras o números opcionales → [A-Za-z0-9]*  
+Signo > literal             → >  
+Cierre seguro               → $
+
+Fecha 1: permitiendo 00  
+/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/
+
+Día 00–29 o 30–31     → ([0-2][0-9]|3[0-1])  
+Separador             → (\/|-)  
+Mes                   → (0[1-9]|1[0-2])  
+Repite separador      → \2  
+Año (4 dígitos)       → (\d{4})  
+Anclas de inicio/fin  → ^ $
+
+Fecha 2: restringiendo 00  
+/^(0[1-9]|[12][0-9]|3[01])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/
+
+Día 01–09            → 0[1-9]  
+Día 10–29            → [12][0-9]  
+Día 30–31            → 3[01]  
+Separador            → (\/|-)  
+Mes 01–12            → (0[1-9]|1[0-2])  
+Repite separador     → \2  
+Año (4 dígitos)      → (\d{4})  
+Cierre seguro        → ^ $
+
+Hora V1:  
+/^(?:[01]?\d|2[0-3])(?::[0-5]\d){1,2}$/
+
+Hora V2:  
+/^(?:[01]?\d|2[0-3]):[0-5]\d$/
+
+Horas 0–9 o 00–09     → [01]?\d  
+Horas 10–19           → [01]\d  
+Horas 20–23           → 2[0-3]  
+Dos puntos literal    → :  
+Minutos 00–59         → [0-5]\d  
+Anclas                → ^ $
+
+([0-9])    → grupo capturador 1  
+(?:[0-9])  → grupo no capturador (sin número)
+
+Fecha y hora  
+/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})\s(?:[01]?\d|2[0-3]):[0-5]\d$/
+
+Día 00–29 o 30–31     → ([0-2][0-9]|3[0-1])  
+Separador             → (\/|-)  
+Mes 01–12             → (0[1-9]|1[0-2])  
+Repite separador      → \2  
+Año (4 dígitos)       → (\d{4})  
+Espacio literal       → \s  
+Horas 0–9 o 00–09     → [01]?\d  
+Horas 10–23           → 2[0-3]  
+Dos puntos literal    → :  
+Minutos 00–59         → [0-5]\d  
+Cierre seguro         → ^ $
+
+Correo electrónico  
+/^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/
+
+Caracteres del usuario      → [\w.-]+  
+Arroba literal              → @  
+Nombre de dominio           → [\w.-]+  
+Punto literal               → \.  
+Extensión (mín. 2 letras)   → [A-Za-z]{2,}  
+Anclas seguras              → ^ $
+
+URL (http, https o ftp)  
+/^(https?|ftp):\/\/[\w.-]+(?:\.[\w.-]+)+(?:\/\S*)?$/
+
+Protocolo (http/https/ftp)  → (https?|ftp)  
+Secuencia :// literal       → :\/\/  
+Primer bloque del dominio   → [\w.-]+  
+Bloques adicionales         → (?:\.[\w.-]+)+  
+Ruta opcional               → (?:\/\S*)?  
+Anclas seguras              → ^ $
+
+ISBN  
+/^97[89]-\d{1,5}-\d{1,7}-\d{1,7}-\d$/
+
+Prefijo 978 o 979            → 97[89]  
+Guion literal                → -  
+Grupo de registro            → \d{1,5}  
+Guion                        → -  
+Código de editor             → \d{1,7}  
+Guion                        → -  
+Identificador de título      → \d{1,7}  
+Guion                        → -  
+Dígito de control            → \d  
+Cierre seguro                → ^ $
+
+Color formato RGB  
+/^RGB\((\d{1,3}),(\d{1,3}),(\d{1,3})\)$/
+
+Literal RGB(                → ^RGB\(  
+Valor rojo 0–999            → (\d{1,3})  
+Coma literal                → ,  
+Valor verde 0–999           → (\d{1,3})  
+Coma literal                → ,  
+Valor azul 0–999            → (\d{1,3})  
+Cierre literal )            → \)  
+Cierre seguro               → $
+
+Palabra que empieza en par (no 0), contiene 0 y acaba en impar  
+/^[2468]\w*0\w*[13579]$/
+
+Empieza con dígito par (2,4,6,8)   → ^[2468]  
+Cualquier carácter de palabra (*)  → \w*  
+Debe contener un 0                 → 0  
+Cualquier carácter de palabra (*)  → \w*  
+Termina en dígito impar            → [13579]$
+
+IP  
+/^(\d{1,3}\.){3}\d{1,3}$/
+
+Bloque de 1–3 dígitos + punto  → (\d{1,3}\.) repetido 3 veces  
+Último bloque de 1–3 dígitos   → \d{1,3}  
+Anclas seguras                 → ^ $
+
+IBAN  
+// sin espacios  
+/^ES\d{22}$/  
+
+Literal ES                 → ^ES  
+Dígitos de control (2)     → \d{2}  
+Resto del IBAN (20)        → \d{20}  
+Total 22 dígitos           → \d{22}  
+Cierre seguro              → $
+
+IBAN organizado en bloques de 4  
+^ES\d{2}\s\d{4}\s\d{4}\s\d{4}\s\d{4}\s\d{4}$
+
+Literal ES                   → ^ES  
+Dígitos de control           → \d{2}  
+Espacio + 4 dígitos          → \s\d{4} (repetido 5 veces)  
+Cierre seguro                → $
+
+IBAN forma compacta  
+^ES\d{2}(?:\s\d{4}){5}$
+
+Literal ES                   → ^ES  
+Dígitos de control           → \d{2}  
+Grupo no capturador          → (?:\s\d{4})  
+Repetición del grupo (5)     → {5}  
+Cierre seguro                → $
+
+Contraseña (8+ caracteres, 1 mayús. y 1 minús.)  
+/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+
+Al menos una minúscula    → (?=.*[a-z])  
+Al menos una mayúscula    → (?=.*[A-Z])  
+Mínimo 8 caracteres       → .{8,}  
+Anclas seguras            → ^ $
+

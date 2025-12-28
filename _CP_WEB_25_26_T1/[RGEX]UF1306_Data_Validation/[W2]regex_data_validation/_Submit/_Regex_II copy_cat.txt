@@ -1,0 +1,77 @@
+Expressions regulars per validar:
+
+Número de telèfon /^\d{6,8}$/
+Start by number :^ \d
+Limit the number to index btw {6,8} digits
+Exit safely : $
+
+Número de telèfon amb codi de país /^\+\d{1,3}\d{9}$/
+Start with literal +     →  ^\+
+International prefix     →  \d{1,3}
+Phone number (9 digits)  →  \d{9}
+Safe ending              →  $
+
+
+Byte /^[01]{8}$/
+Numerical combination of the set [01]repeated {8} 8 times 
+
+Etiqueta HTML d'obertura 
+/^<[A-Za-z][A-Za-z0-9]*>$/
+
+Literal < →  ^<
+At least 1 letter →  [A-Za-z]
+Optional letters/digits → [A-Za-z0-9]*
+Literal >   →  >
+Safe ending →  $
+
+Etiqueta HTML de tancament /^</[A-Za-z][A-Za-z0-9]*>$/
+Literal </              →  ^</
+At least 1 letter       →  [A-Za-z]
+Optional letters/digits →  [A-Za-z0-9]*
+Literal >               →  >
+Safe ending             →  $
+
+
+Data 
+/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/ - allowing date 00
+
+Day 00–29 or 30–31   → ([0-2][0-9]|3[0-1])
+Separator             → (\/|-)
+Month                 → (0[1-9]|1[0-2])
+Repeat separator      → \2
+Year (4 digits)       → (\d{4})
+Full string anchors   → ^  $
+
+/^(0[1-9]|[12][0-9]|3[01])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/ - restricting 00
+ Entrada : ^forca numero 
+ Dia : ^(0[1-9]|[12][0-9]|3[01])
+ Separations : graphiques (\/|-)
+Mes : (0[1-9]|1[0-2])
+Repeteix grup 2 - els separators : \2
+Year : (\d{4})
+Surtida  limita caracteres : $
+
+Hora /^(?:[01]?\d|2[0-3])(?::[0-5]\d){1,2}$/
+
+Data i hora /^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})\s(?:[01]?\d|2[0-3])(?::[0-5]\d){1,2}$/
+Correu electrònic /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/
+
+URL (http, https o ftp) /^(https?|ftp):\/\/[\w.-]+(?:\.[\w.-]+)+(?:\/\S*)?$/
+
+ISBN (cercar informació del format) i explicar quin és. /^97[89]-\d{1,5}-\d{1,7}-\d{1,7}-\d$/
+
+Color amb format RGB -> RGB(255,255,255) /^RGB\((\d{1,3}),(\d{1,3}),(\d{1,3})\)$/
+
+Paraula que comenci per un nombre parell (excepte el zero), acabi per un nombre senar i contingui el 0. /^[2468]\w*0\w*[13579]$/
+
+IP /^(\d{1,3}\.){3}\d{1,3}$/
+
+IBAN 
+
+/^ES\d{22}$/ 
+^ES\d{2}\s\d{4}\s\d{4}\s\d{4}\s\d{4}\s\d{4}$
+^ES\d{2}(?:\s\d{4}){5}$
+
+
+Contrasenya amb longitud superior o igual a 8 caràcters amb almenys una majúscula i una minúscula. 
+/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/

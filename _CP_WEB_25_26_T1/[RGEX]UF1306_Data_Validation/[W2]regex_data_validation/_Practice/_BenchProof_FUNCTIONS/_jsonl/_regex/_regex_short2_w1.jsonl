@@ -1,0 +1,19 @@
+{"id":"REG-SHORT-01","type":"short","tier":1,"lang":"en","category":"Regex • Test","subcat":"digits","question":"What does the console print? (true/false)","code":"console.log(/^\\d{3}$/.test(\"123\"));","answer":"true","hint":"Exact three-digit match.","explain":"123 matches ^\\d{3}$ fully."}
+
+{"id":"REG-SHORT-02","type":"short","tier":1,"lang":"en","category":"Regex • Test","subcat":"digits","question":"What does the console print? (true/false)","code":"console.log(/^\\d{3}$/.test(\"12a\"));","answer":"false","hint":"a is not a digit.","explain":"12a fails because of the letter."}
+
+{"id":"REG-SHORT-03","type":"short","tier":1,"lang":"en","category":"Regex • Test","subcat":"vowels","question":"What does the console print? (true/false)","code":"console.log(/^[aeiou]$/.test(\"x\"));","answer":"false","hint":"x is not a vowel.","explain":"The set [aeiou] excludes x."}
+
+{"id":"REG-SHORT-04","type":"short","tier":1,"lang":"en","category":"Regex • Test","subcat":"negset","question":"What does the console print? (true/false)","code":"console.log(/^[^aeiou]$/.test(\"b\"));","answer":"true","hint":"Consonant accepted.","explain":"Negated vowel set matches b."}
+
+{"id":"REG-SHORT-05","type":"short","tier":1,"lang":"en","category":"Regex • Test","subcat":"or","question":"What does the console print? (true/false)","code":"console.log(/^(cat|dog)$/.test(\"hotdog\"));","answer":"false","hint":"Full-match required.","explain":"hotdog does not equal cat or dog."}
+
+{"id":"REG-SHORT-06","type":"short","tier":1,"lang":"en","category":"Regex • Test","subcat":"letters","question":"What does the console print? (true/false)","code":"console.log(/^[A-Za-z]+$/.test(\"Ana22\"));","answer":"false","hint":"Digits not allowed.","explain":"[A-Za-z]+ does not accept 2 or 2."}
+
+{"id":"REG-SHORT-07","type":"short","tier":1,"lang":"en","category":"Regex • Test","subcat":"digits","question":"What does the console print? (true/false)","code":"console.log(/^\\d+$/.test(\"500\"));","answer":"true","hint":"One or more digits.","explain":"500 matches \\d+ completely."}
+
+{"id":"REG-SHORT-08","type":"short","tier":1,"lang":"en","category":"Regex • Test","subcat":"optional","question":"What does the console print? (true/false)","code":"console.log(/^-?\\d+$/.test(\"-25\"));","answer":"true","hint":"Optional minus allowed.","explain":"-? allows one minus before digits."}
+
+{"id":"REG-SHORT-09","type":"short","tier":1,"lang":"en","category":"Regex • Test","subcat":"optional","question":"What does the console print? (true/false)","code":"console.log(/^-?\\d+$/.test(\"--25\"));","answer":"false","hint":"Only one minus allowed.","explain":"-- is not accepted by -?."}
+
+{"id":"REG-SHORT-10","type":"short","tier":1,"lang":"en","category":"Regex • Test","subcat":"postal","question":"What does the console print? (true/false)","code":"console.log(/^\\d{5}$/.test(\"0891A\"));","answer":"false","hint":"Last char must be digit.","explain":"0891A fails because A is not a digit."}

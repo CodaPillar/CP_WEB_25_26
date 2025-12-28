@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Caterpillar Math — Unit Fraction Analyzer</title>
+<style>
+    body{
+        font-family: system-ui, sans-serif;
+        background:#f4f4f4;
+        margin:0;
+        padding:40px;
+        color:#111;
+    }
+
+    h1{
+        font-weight:600;
+        letter-spacing:1px;
+        margin-bottom:20px;
+    }
+
+    .container{
+        max-width:800px;
+        margin:auto;
+    }
+
+    input{
+        padding:10px;
+        font-size:1.2rem;
+        width:200px;
+        border:1px solid #bbb;
+        border-radius:5px;
+    }
+
+    button{
+        padding:10px 20px;
+        font-size:1rem;
+        margin-left:10px;
+        background:black;
+        color:white;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+    }
+
+    .caterpillar{
+        display:flex;
+        margin-top:30px;
+        gap:8px;
+        flex-wrap:wrap;
+    }
+
+    .segment{
+        background:white;
+        border:2px solid #222;
+        padding:12px 18px;
+        text-align:center;
+        min-width:90px;
+        border-radius:6px;
+    }
+
+    .fraction{
+        font-size:1.2rem;
+        font-weight:600;
+        margin-bottom:4px;
+    }
+
+    .percent{
+        font-size:0.9rem;
+        color:#444;
+    }
+
+    .output{
+        margin-top:30px;
+        background:white;
+        padding:20px;
+        border-radius:8px;
+        border:1px solid #ddd;
+    }
+
+    .row{
+        border-bottom:1px solid #eee;
+        padding:10px 0;
+        display:flex;
+        justify-content:space-between;
+        font-family:monospace;
+    }
+
+    .row:last-child{
+        border-bottom:none;
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>Caterpillar Math — Fraction Analyzer</h1>
+
+    <p>Enter a number of cents and see how it breaks into unit fractions of 100 using division + modulo.</p>
+
+    <input type="number" id="amount" placeholder="Enter cents (e.g., 87)">
+    <button onclick="runCaterpillar()">Analyze</button>
+
+    <!-- Caterpillar Display -->
+    <div class="caterpillar" id="caterpillar"></div>
+
+    <!-- Output Breakdown -->
+    <div class="output" id="results"></div>
+</div>
+
+<script>
+const segments = [
+  { fraction: "1/2",  percent:"50%",  value: 50 },
+  { fraction: "1/4",  percent:"25%",  value: 25 },
+  { fraction: "1/5",  percent:"20%",  value: 20 },
+  { fraction: "1/10", percent:"10%",  value: 10 },
+  { fraction: "1/20", percent:"5%",   value: 5  },
+  { fraction: "1/100",percent:"1%",   value: 1  }
+];
+
+// Renders the geometric caterpillar
+function renderCaterpillar(){
+    const cat = document.getElementById("caterpillar");
+    cat.innerHTML = "";
+    segments.forEach(seg=>{
+        const div = document.createElement("div");
+        div.className = "segment";
+        div.innerHTML = `
+            <div class="fraction">${seg.fraction}</div>
+            <div class="percent">${seg.percent}</div>
+        `;
+        cat.appendChild(div);
+    });
+}
+
+// Computes groups + leftover
+function analyze(n){
+    return segments.map(seg => ({
+        fraction: seg.fraction,
+        percent: seg.percent,
+        segmentValue: seg.value,
+        groups: Math.floor(n / seg.value),
+        leftover: n % seg.value
+    }));
+}
+
+// Renders breakdown output
+function renderResults(data, n){
+    const box = document.getElementById("results");
+    box.innerHTML = `<h3>Breakdown for ${n} cents</h3>`;
+    data.forEach(item=>{
+        box.innerHTML += `
+            <div class="row">
+                <span>${item.fraction} (${item.percent})</span>
+                <span>groups: ${item.groups} | leftover: ${item.leftover}</span>
+            </div>
+        `;
+    });
+}
+
+// Main function
+function runCaterpillar(){
+    const n = parseInt(document.getElementById("amount").value);
+    if (isNaN(n) || n < 0){
+        alert("Please enter a valid number.");
+        return;
+    }
+    const data = analyze(n);
+    renderResults(data, n);
+}
+
+// Render on load
+renderCaterpillar();
+</script>
+
+</body>
+</html>

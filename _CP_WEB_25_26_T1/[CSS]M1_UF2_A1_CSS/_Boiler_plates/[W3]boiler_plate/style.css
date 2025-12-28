@@ -1,0 +1,242 @@
+/* ===============================
+   0. Imports (if needed)
+   =============================== */
+
+@import url('');
+@import url('');
+
+
+/* ===============================
+   1. Reset / Global defaults
+   =============================== */
+
+* {
+    /* box-sizing: ; */
+    /* margin: ; */
+    /* padding: ; */
+}
+
+body {
+    /* font-family: ; */
+    /* font-size: ; */
+    /* line-height: ; */
+
+    /* background-color: ; */
+    /* background-image: ; */
+    /* background-repeat: ; */
+    /* background-position: ; */
+    /* background-size: ; */
+    /* background-attachment: ; */
+
+    /* color: ; */
+    /* margin: ; */
+    /* padding: ; */
+}
+
+
+/* ===============================
+   2. Main layout container
+   =============================== */
+
+#page-wrapper {
+    /* max-width: ; */
+    /* margin: ; */
+    /* padding: ; */
+
+    /* background: ; */
+    /* border-radius: ; */
+    /* overflow: ; */
+}
+
+
+/* ===============================
+   3. Headings & Basic Typography
+   =============================== */
+
+h1 {
+    /* font-size: ; */
+    /* font-family: ; */
+    /* letter-spacing: ; */
+    /* text-align: ; */
+    /* color: ; */
+
+    /* margin: ; */
+    /* padding: ; */
+}
+
+h2, h3 {
+    /* font-size: ; */
+    /* margin: ; */
+    /* color: ; */
+    /* font-family: ; */
+}
+
+/* Paragraphs */
+p {
+    /* font-size: ; */
+    /* line-height: ; */
+    /* color: ; */
+    /* margin: ; */
+    /* padding: ; */
+}
+
+
+/* ===============================
+   4. Cards (generic reusable component)
+   =============================== */
+
+.card {
+    /* width: ; */
+    /* max-width: ; */
+    /* min-width: ; */
+
+    /* padding: ; */
+    /* margin: ; */
+
+    /* background: ; */
+    /* border: ; */
+    /* border-radius: ; */
+    /* box-shadow: ; */
+
+    /* transition: ; */
+}
+
+.card:hover {
+    /* transform: ; */
+    /* box-shadow: ; */
+    /* background: ; */
+}
+
+/* Card images */
+.card img {
+    /* width: ; */
+    /* aspect-ratio: ; */
+    /* object-fit: ; */
+    /* border-radius: ; */
+    /* margin-bottom: ; */
+}
+
+
+/* ===============================
+   5. Flex & Grid Layouts
+   =============================== */
+
+.flex-row {
+    /* display: ; */
+    /* flex-direction: ; */
+    /* gap: ; */
+    /* justify-content: ; */
+    /* align-items: ; */
+}
+
+.flex-col {
+    /* display: ; */
+    /* flex-direction: ; */
+    /* gap: ; */
+}
+
+.grid-3 {
+    /* display: ; */
+    /* grid-template-columns: ; */
+    /* gap: ; */
+}
+
+.grid-auto {
+    /* display: ; */
+    /* grid-template-columns: ; */
+    /* gap: ; */
+}
+
+
+/* ===============================
+   6. Lists (UL / OL)
+   =============================== */
+
+ul, ol {
+    /* list-style-type: ; */
+    /* padding-left: ; */
+    /* margin: ; */
+}
+
+ul li::before {
+    /* content: ; */
+    /* color: ; */
+    /* margin-right: ; */
+}
+
+ol li {
+    /* margin-bottom: ; */
+}
+
+
+/* ===============================
+   7. Links
+   =============================== */
+
+a {
+    /* color: ; */
+    /* text-decoration: ; */
+    /* font-weight: ; */
+}
+
+a:hover {
+    /* color: ; */
+    /* text-decoration: ; */
+}
+
+
+/* ===============================
+   8. Buttons (generic)
+   =============================== */
+
+.btn {
+    /* display: ; */
+    /* padding: ; */
+    /* background: ; */
+    /* color: ; */
+    /* border-radius: ; */
+    /* text-decoration: ; */
+}
+
+.btn:hover {
+    /* background: ; */
+}
+
+
+/* ===============================
+   9. Utility Classes (spacing helpers)
+   =============================== */
+
+.mt {
+    /* margin-top: ; */
+}
+
+.mb {
+    /* margin-bottom: ; */
+}
+
+.pt {
+    /* padding-top: ; */
+}
+
+.pb {
+    /* padding-bottom: ; */
+}
+
+
+/* ===============================
+   10. Media Queries (responsiveness)
+   =============================== */
+
+@media (max-width: 900px) {
+    .card {
+        /* flex: ; */
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        /* flex: ; */
+    }
+}
+
